@@ -25,7 +25,7 @@
       <div class="mobile-nav">
         <!-- Navbar Brand -->
         <div class="amado-navbar-brand">
-          <a href="index.html"><img src="static/img/core-img/logo.png" alt=""></a>
+          <a href="index"><img src="static/img/core-img/logo.png" alt=""></a>
         </div>
         <!-- Navbar Toggler -->
         <div class="amado-navbar-toggler">
@@ -41,16 +41,16 @@
         </div>
         <!-- Logo -->
         <div class="logo">
-          <a href="index.html"><img src="static/img/core-img/logo.png" alt=""></a>
+          <a href="index"><img src="static/img/core-img/logo.png" alt=""></a>
         </div>
         <!-- Amado Nav -->
         <!--            <nav class="amado-nav">-->
         <!--                <ul>-->
-        <!--                    <li class="active"><a href="index.html">Home</a></li>-->
-        <!--                    <li><a href="shop.html">Shop</a></li>-->
-        <!--                    <li><a href="product-details.html">Product</a></li>-->
-        <!--                    <li><a href="cart.html">Cart</a></li>-->
-        <!--                    <li><a href="checkout.html">Checkout</a></li>-->
+        <!--                    <li class="active"><a href="index">Home</a></li>-->
+        <!--                    <li><a href="shop">Shop</a></li>-->
+        <!--                    <li><a href="product-details">Product</a></li>-->
+        <!--                    <li><a href="cart">Cart</a></li>-->
+        <!--                    <li><a href="checkout">Checkout</a></li>-->
         <!--                </ul>-->
         <!--            </nav>-->
         <!-- Button Group -->
@@ -60,8 +60,8 @@
         <!--            </div>-->
         <!-- Cart Menu -->
         <div class="cart-fav-search mb-100">
-          <a href="cart.html" class="cart-nav"><img src="static/img/core-img/home.png" alt=""> Home </a>
-          <a href="cart.html" class="cart-nav"><img src="static/img/core-img/cart.png" alt=""> Cart <span>(0)</span></a>
+          <a href="cart" class="cart-nav"><img src="static/img/core-img/home.png" alt=""> Home </a>
+          <a href="cart" class="cart-nav"><img src="static/img/core-img/cart.png" alt=""> Cart <span>(0)</span></a>
           <a href="#" class="fav-nav"><img src="static/img/core-img/favorites.png" alt=""> Favourite</a>
           <a href="#" class="search-nav"><img src="static/img/core-img/search.png" alt=""> Search</a>
         </div>
@@ -81,7 +81,7 @@
 
           <!-- Single Catagory -->
           <div class="single-products-catagory clearfix">
-            <a href="shop.html">
+            <a href="shop">
               <img src="static/img/bg-img/1.jpg" alt="">
               <!-- Hover Content -->
               <div class="hover-content">
@@ -94,7 +94,7 @@
 
           <!-- Single Catagory -->
           <div class="single-products-catagory clearfix">
-            <a href="shop.html">
+            <a href="shop">
               <img src="static/img/bg-img/2.jpg" alt="">
               <!-- Hover Content -->
               <div class="hover-content">
@@ -107,7 +107,7 @@
 
           <!-- Single Catagory -->
           <div class="single-products-catagory clearfix">
-            <a href="shop.html">
+            <a href="shop">
               <img src="static/img/bg-img/3.jpg" alt="">
               <!-- Hover Content -->
               <div class="hover-content">
@@ -120,7 +120,7 @@
 
           <!-- Single Catagory -->
           <div class="single-products-catagory clearfix">
-            <a href="shop.html">
+            <a href="shop">
               <img src="static/img/bg-img/4.jpg" alt="">
               <!-- Hover Content -->
               <div class="hover-content">
@@ -133,7 +133,7 @@
 
           <!-- Single Catagory -->
           <div class="single-products-catagory clearfix">
-            <a href="shop.html">
+            <a href="shop">
               <img src="static/img/bg-img/5.jpg" alt="">
               <!-- Hover Content -->
               <div class="hover-content">
@@ -146,7 +146,7 @@
 
           <!-- Single Catagory -->
           <div class="single-products-catagory clearfix">
-            <a href="shop.html">
+            <a href="shop">
               <img src="static/img/bg-img/6.jpg" alt="">
               <!-- Hover Content -->
               <div class="hover-content">
@@ -159,7 +159,7 @@
 
           <!-- Single Catagory -->
           <div class="single-products-catagory clearfix">
-            <a href="shop.html">
+            <a href="shop">
               <img src="static/img/bg-img/7.jpg" alt="">
               <!-- Hover Content -->
               <div class="hover-content">
@@ -172,7 +172,7 @@
 
           <!-- Single Catagory -->
           <div class="single-products-catagory clearfix">
-            <a href="shop.html">
+            <a href="shop">
               <img src="static/img/bg-img/8.jpg" alt="">
               <!-- Hover Content -->
               <div class="hover-content">
@@ -185,7 +185,7 @@
 
           <!-- Single Catagory -->
           <div class="single-products-catagory clearfix">
-            <a href="shop.html">
+            <a href="shop">
               <img src="static/img/bg-img/9.jpg" alt="">
               <!-- Hover Content -->
               <div class="hover-content">
@@ -208,7 +208,7 @@
             <div class="single_widget_area">
               <!-- Logo -->
               <div class="footer-logo mr-50">
-                <a href="index.html"><img src="static/img/core-img/logo2.png" alt=""></a>
+                <a href="index"><img src="static/img/core-img/logo2.png" alt=""></a>
               </div>
               <!-- Copywrite Text -->
               <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
@@ -226,10 +226,10 @@
                   <div class="collapse navbar-collapse" id="footerNavContent">
                     <ul class="navbar-nav ml-auto">
                       <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Home</a>
+                        <a class="nav-link" href="index">Home</a>
                       </li>
                       <!--                                        <li class="nav-item">-->
-                      <!--                                            <a class="nav-link" href="shop.html">Shop</a>-->
+                      <!--                                            <a class="nav-link" href="shop">Shop</a>-->
                       <!--                                        </li>-->
                     </ul>
                   </div>
@@ -245,17 +245,16 @@
 </template>
 
 <script>
-export default {
-  name: 'HelloWorld',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
+  export default {
+    name: 'HomePage',
+    data () {
+      return {
+        msg: 'Welcome to Your Vue.js App'
+      }
     }
   }
-}
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
 </style>
