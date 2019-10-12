@@ -29,8 +29,8 @@
       <div class="cart-fav-search mb-100">
         <a href="/" class="cart-nav"><img src="static/img/core-img/home.png" alt=""> Home </a>
         <a href="/cart" class="cart-nav"><img src="static/img/core-img/cart.png" alt=""> Cart <span>(0)</span></a>
-        <a href="#" class="fav-nav"><img src="static/img/core-img/favorites.png" alt=""> Favourite</a>
-        <a href="#" class="search-nav"><img src="static/img/core-img/search.png" alt=""> Search</a>
+        <a href="/Checkout" class="fav-nav"><img src="static/img/core-img/favorites.png" alt=""> CheckOut</a>
+        <a v-if="isHomePage" href="#" class="search-nav"><img src="static/img/core-img/search.png" alt=""> Search</a>
       </div>
       <!-- Social Button -->
       <div class="social-info d-flex justify-content-between">
@@ -49,9 +49,12 @@ export default {
   name: 'NavBar',
   data () {
     return {
-      msg: ''
+      isHomePage: this.$route.path === '/'
     }
-  }
+  },
+  mounted() {
+
+  },
 }
 </script>
 
