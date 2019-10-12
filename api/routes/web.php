@@ -20,5 +20,13 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('/product', [
-    'as' => 'product', 'uses' => 'ProductController@getTest'
+    'as' => 'product', 'uses' => 'MockController@getTest'
+]);
+
+$router->put('/product/{id}/update', [
+    'as' => 'picture', 'uses' => 'ProductController@uploadImage'
+]);
+
+$router->post('/product/add', [
+    'as' => 'picture', 'uses' => 'ProductController@uploadImage'
 ]);

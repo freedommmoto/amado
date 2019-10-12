@@ -63,6 +63,7 @@
         name: 'HomePage',
         data() {
             return {
+                apiPart:  this.$root.$data.apiPart,
                 countFilter: 0,
                 products: [],
                 filter: '',
@@ -115,7 +116,7 @@
             async getProduct() {
                 try {
                     const res = await axios.get(
-                        `http://api.amado.com/product`
+                        `${this.apiPart}/product`
                     )
                     this.products = res.data.products
                     let $this = this
