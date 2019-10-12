@@ -115,7 +115,7 @@
             async getProduct() {
                 try {
                     const res = await axios.get(
-                        `http://poapi.exciteholidays.com/product`
+                        `http://api.amado.com/product`
                     )
                     this.products = res.data.products
                     let $this = this
@@ -147,6 +147,11 @@
                                 title: 'already added you product!',
                             })
                         }
+                    })
+                } else {
+                    Swal.fire({
+                        type: 'warning',
+                        title: 'This product is Sold out',
                     })
                 }
             }
