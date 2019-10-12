@@ -2,25 +2,25 @@
   "products": [
     {
       "id": 1,
-      "name": "photo-aitakatta-250",
+      "name": "asd",
       "price": 250,
       "img": "1.jpg"
     },
     {
       "id": 2,
-      "name": "photo-changsuek-250",
+      "name": "asdasdasdasd",
       "price": 250,
       "img": "2.jpg"
     },
     {
       "id": 3,
-      "name": "photo-changsuek-250",
+      "name": "bbbb",
       "price": 250,
       "img": "3.jpg"
     },
     {
       "id": 4,
-      "name": "photo-changsuek-250",
+      "name": "bc",
       "price": 250,
       "img": "4.jpg"
     },

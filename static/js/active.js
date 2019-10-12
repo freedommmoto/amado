@@ -7,6 +7,10 @@
 
     var proCata = $('.amado-pro-catagory');
     var singleProCata = ".single-products-catagory";
+    var hash = document.URL.substr(document.URL.indexOf('#')+1)
+    if(hash === 'search'){
+        $('body').toggleClass('search-wrapper-on');
+    }
 
     if ($.fn.imagesLoaded) {
         proCata.imagesLoaded(function () {
