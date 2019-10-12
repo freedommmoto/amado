@@ -1,8 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HomePage from '@/components/HomePage'
-import Cart from '@/components/Cart'
-import CheckOut from '@/components/CheckOut'
+import HomePage from '@/pages/HomePage'
+import Cart from '@/pages/Cart'
+import CheckOut from '@/pages/CheckOut'
 
 Vue.use(Router)
 
