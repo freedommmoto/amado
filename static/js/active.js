@@ -80,9 +80,9 @@
     }
 
     // :: 7.0 Nicescroll Active Code
-    if ($.fn.niceScroll) {
-        $(".cart-table table").niceScroll();
-    }
+    // if ($.fn.niceScroll) {
+    //     $(".cart-table table").niceScroll();
+    // }
 
     // :: 8.0 wow Active Code
     if ($window.width() > 767) {

@@ -34,7 +34,10 @@
                         <a class="nav-link" href="/cart">Cart</a>
                       </li>
                       <li class="nav-item">
-                        <a class="nav-link" href="/Checkout">CheckOut</a>
+                        <a class="nav-link" href="/checkout">CheckOut</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="/admin">Admin</a>
                       </li>
                     </ul>
                   </div>
