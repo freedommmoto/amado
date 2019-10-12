@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
 
     <div class="search-wrapper section-padding-100">
       <div class="search-close">
@@ -32,48 +32,6 @@
           <span></span><span></span><span></span>
         </div>
       </div>
-
-      <!-- Header Area Start -->
-      <header class="header-area clearfix">
-        <!-- Close Icon -->
-        <div class="nav-close">
-          <i class="fa fa-close" aria-hidden="true"></i>
-        </div>
-        <!-- Logo -->
-        <div class="logo">
-          <a href="index"><img src="static/img/core-img/logo.png" alt=""></a>
-        </div>
-        <!-- Amado Nav -->
-        <!--            <nav class="amado-nav">-->
-        <!--                <ul>-->
-        <!--                    <li class="active"><a href="index">Home</a></li>-->
-        <!--                    <li><a href="shop">Shop</a></li>-->
-        <!--                    <li><a href="product-details">Product</a></li>-->
-        <!--                    <li><a href="cart">Cart</a></li>-->
-        <!--                    <li><a href="checkout">Checkout</a></li>-->
-        <!--                </ul>-->
-        <!--            </nav>-->
-        <!-- Button Group -->
-        <!--            <div class="amado-btn-group mt-30 mb-100">-->
-        <!--                <a href="#" class="btn amado-btn mb-15">%Discount%</a>-->
-        <!--                <a href="#" class="btn amado-btn active">New this week</a>-->
-        <!--            </div>-->
-        <!-- Cart Menu -->
-        <div class="cart-fav-search mb-100">
-          <a href="cart" class="cart-nav"><img src="static/img/core-img/home.png" alt=""> Home </a>
-          <a href="cart" class="cart-nav"><img src="static/img/core-img/cart.png" alt=""> Cart <span>(0)</span></a>
-          <a href="#" class="fav-nav"><img src="static/img/core-img/favorites.png" alt=""> Favourite</a>
-          <a href="#" class="search-nav"><img src="static/img/core-img/search.png" alt=""> Search</a>
-        </div>
-        <!-- Social Button -->
-        <div class="social-info d-flex justify-content-between">
-          <a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-          <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
-          <a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-          <a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-        </div>
-      </header>
-      <!-- Header Area End -->
 
       <!-- Product Catagories Area Start -->
       <div class="products-catagories-area clearfix">
@@ -199,47 +157,6 @@
       </div>
       <!-- Product Catagories Area End -->
     </div>
-
-    <footer class="footer_area clearfix">
-      <div class="container">
-        <div class="row align-items-center">
-          <!-- Single Widget Area -->
-          <div class="col-12 col-lg-4">
-            <div class="single_widget_area">
-              <!-- Logo -->
-              <div class="footer-logo mr-50">
-                <a href="index"><img src="static/img/core-img/logo2.png" alt=""></a>
-              </div>
-              <!-- Copywrite Text -->
-              <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                Copyright &copy; All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-            </div>
-          </div>
-          <!-- Single Widget Area -->
-          <div class="col-12 col-lg-8">
-            <div class="single_widget_area">
-              <!-- Footer Menu -->
-              <div class="footer_menu">
-                <nav class="navbar navbar-expand-lg justify-content-end">
-                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#footerNavContent" aria-controls="footerNavContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
-                  <div class="collapse navbar-collapse" id="footerNavContent">
-                    <ul class="navbar-nav ml-auto">
-                      <li class="nav-item active">
-                        <a class="nav-link" href="index">Home</a>
-                      </li>
-                      <!--                                        <li class="nav-item">-->
-                      <!--                                            <a class="nav-link" href="shop">Shop</a>-->
-                      <!--                                        </li>-->
-                    </ul>
-                  </div>
-                </nav>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
 
   </div>
 </template>
