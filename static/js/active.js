@@ -5,20 +5,25 @@
 
     // :: 1.0 Masonary Gallery Active Code
 
-    var proCata = $('.amado-pro-catagory');
-    var singleProCata = ".single-products-catagory";
+    // var proCata = $('.amado-pro-catagory');
+    // var singleProCata = ".single-products-catagory";
 
-    if ($.fn.imagesLoaded) {
-        proCata.imagesLoaded(function () {
-            proCata.isotope({
-                itemSelector: singleProCata,
-                percentPosition: true,
-                masonry: {
-                    columnWidth: singleProCata
-                }
-            });
-        });
+    var hash = document.URL.substr(document.URL.indexOf('#')+1)
+    if(hash === 'search'){
+        $('body').toggleClass('search-wrapper-on');
     }
+
+    // if ($.fn.imagesLoaded) {
+    //     proCata.imagesLoaded(function () {
+    //         proCata.isotope({
+    //             itemSelector: singleProCata,
+    //             percentPosition: true,
+    //             masonry: {
+    //                 columnWidth: singleProCata
+    //             }
+    //         });
+    //     });
+    // }
 
     // :: 2.1 Search Active Code
     var amadoSearch = $('.search-nav');
@@ -75,9 +80,9 @@
     }
 
     // :: 7.0 Nicescroll Active Code
-    if ($.fn.niceScroll) {
-        $(".cart-table table").niceScroll();
-    }
+    // if ($.fn.niceScroll) {
+    //     $(".cart-table table").niceScroll();
+    // }
 
     // :: 8.0 wow Active Code
     if ($window.width() > 767) {
