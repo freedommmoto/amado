@@ -32,10 +32,12 @@
             </div>
 
             <div class="products-catagories-area clearfix">
-                <div class="amado-pro-catagory clearfix">
+                <div class="amado-pro-catagory clearfix ">
                     <div class="single-products-catagory clearfix" :key='idx'
-                         v-for="(product,idx) in this.filterProduct">
-                        <a href="cart">
+                         v-for="(product,idx) in this.filterProduct"
+                         v-bind:style="[product.stock > 0 ? {} : {opacity:0.4}]"
+                    >
+                        <a href="#" @click="activeProduct(product)">
                             <img :src="`/static/img/bg-img/${product.img}`" :alt="`/static/img/bg-img/${product.name}`">
                             <div class="hover-content">
                                 <div class="line"></div>
@@ -52,15 +54,22 @@
 </template>
 
 <script>
-    import {products} from '../../db.json' //const products = db.products
+    //import {products} from '../../db.json' //const products = db.products
+    import Swal from 'sweetalert2'
+    import axios from 'axios'
+    import Masonry from 'masonry-layout'
+
     export default {
         name: 'HomePage',
         data() {
             return {
                 countFilter: 0,
-                products,
+                products: [],
                 filter: '',
             }
+        },
+        mounted() {
+            this.getProduct()
         },
         computed: {
             filterProduct() {
@@ -80,10 +89,70 @@
                 this.countFilter = filter.length;
                 return products;
             }
+        },
+        created() {
+            document.addEventListener("resize", this.myEventHandler);
+        },
+        destroyed() {
+            document.removeEventListener("resize", this.myEventHandler);
+        },
+        methods: {
+            renderMasonry() {
+                const grid = document.querySelector('.amado-pro-catagory')
+                const singleProCata = '.single-products-catagory'
+                const msnry = new Masonry(grid, {
+                    itemSelector: singleProCata,
+                    percentPosition: true,
+                    masonry: {columnWidth: singleProCata},
+                })
+
+                msnry.once('layoutComplete', () => {
+                    grid.classList.add('load')
+                })
+
+                msnry.layout()
+            },
+            async getProduct() {
+                try {
+                    const res = await axios.get(
+                        `http://poapi.exciteholidays.com/product`
+                    )
+                    this.products = res.data.products
+                    let $this = this
+                    setTimeout(function () {
+                        $this.renderMasonry();
+                    }, 100);
+
+                } catch ({message}) {
+                    console.log(message)
+                }
+            },
+            activeProduct(product) {
+                if (product.stock > 0) {
+                    Swal.fire({
+                        title: `Are you want to order ${product.name}?`,
+                        type: 'question',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Yes'
+                    }).then((result) => {
+                        if (result.value) {
+
+                            product.stock = 0;
+                            product.name = `${product.name} - Sold out`
+
+                            Swal.fire({
+                                type: 'success',
+                                title: 'already added you product!',
+                            })
+                        }
+                    })
+                }
+            }
         }
     }
 </script>
 
 <style scoped>
-
 </style>
