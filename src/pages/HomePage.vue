@@ -23,150 +23,40 @@
 
       <!-- Mobile Nav (max width 767px)-->
       <div class="mobile-nav">
-        <!-- Navbar Brand -->
         <div class="amado-navbar-brand">
           <a href="index"><img src="static/img/core-img/logo.png" alt=""></a>
         </div>
-        <!-- Navbar Toggler -->
         <div class="amado-navbar-toggler">
           <span></span><span></span><span></span>
         </div>
       </div>
 
-      <!-- Product Catagories Area Start -->
       <div class="products-catagories-area clearfix">
         <div class="amado-pro-catagory clearfix">
-
-          <!-- Single Catagory -->
-          <div class="single-products-catagory clearfix">
+          <div class="single-products-catagory clearfix" :key='idx' v-for="(product,idx) in this.products">
             <a href="cart">
-              <img src="static/img/bg-img/1.jpg" alt="">
-              <!-- Hover Content -->
+              <img :src="`/static/img/bg-img/${product.img}`" :alt="`/static/img/bg-img/${product.name}`">
               <div class="hover-content">
                 <div class="line"></div>
-                <p>From $180</p>
-                <h4>Modern Chair</h4>
-              </div>
-            </a>
-          </div>
-
-          <!-- Single Catagory -->
-          <div class="single-products-catagory clearfix">
-            <a href="cart">
-              <img src="static/img/bg-img/2.jpg" alt="">
-              <!-- Hover Content -->
-              <div class="hover-content">
-                <div class="line"></div>
-                <p>From $180</p>
-                <h4>Minimalistic Plant Pot</h4>
-              </div>
-            </a>
-          </div>
-
-          <!-- Single Catagory -->
-          <div class="single-products-catagory clearfix">
-            <a href="cart">
-              <img src="static/img/bg-img/3.jpg" alt="">
-              <!-- Hover Content -->
-              <div class="hover-content">
-                <div class="line"></div>
-                <p>From $180</p>
-                <h4>Modern Chair</h4>
-              </div>
-            </a>
-          </div>
-
-          <!-- Single Catagory -->
-          <div class="single-products-catagory clearfix">
-            <a href="cart">
-              <img src="static/img/bg-img/4.jpg" alt="">
-              <!-- Hover Content -->
-              <div class="hover-content">
-                <div class="line"></div>
-                <p>From $180</p>
-                <h4>Night Stand</h4>
-              </div>
-            </a>
-          </div>
-
-          <!-- Single Catagory -->
-          <div class="single-products-catagory clearfix">
-            <a href="cart">
-              <img src="static/img/bg-img/5.jpg" alt="">
-              <!-- Hover Content -->
-              <div class="hover-content">
-                <div class="line"></div>
-                <p>From $18</p>
-                <h4>Plant Pot</h4>
-              </div>
-            </a>
-          </div>
-
-          <!-- Single Catagory -->
-          <div class="single-products-catagory clearfix">
-            <a href="cart">
-              <img src="static/img/bg-img/6.jpg" alt="">
-              <!-- Hover Content -->
-              <div class="hover-content">
-                <div class="line"></div>
-                <p>From $320</p>
-                <h4>Small Table</h4>
-              </div>
-            </a>
-          </div>
-
-          <!-- Single Catagory -->
-          <div class="single-products-catagory clearfix">
-            <a href="cart">
-              <img src="static/img/bg-img/7.jpg" alt="">
-              <!-- Hover Content -->
-              <div class="hover-content">
-                <div class="line"></div>
-                <p>From $318</p>
-                <h4>Metallic Chair</h4>
-              </div>
-            </a>
-          </div>
-
-          <!-- Single Catagory -->
-          <div class="single-products-catagory clearfix">
-            <a href="cart">
-              <img src="static/img/bg-img/8.jpg" alt="">
-              <!-- Hover Content -->
-              <div class="hover-content">
-                <div class="line"></div>
-                <p>From $318</p>
-                <h4>Modern Rocking Chair</h4>
-              </div>
-            </a>
-          </div>
-
-          <!-- Single Catagory -->
-          <div class="single-products-catagory clearfix">
-            <a href="cart">
-              <img src="static/img/bg-img/9.jpg" alt="">
-              <!-- Hover Content -->
-              <div class="hover-content">
-                <div class="line"></div>
-                <p>From $318</p>
-                <h4>Home Deco</h4>
+                <p>From ${{product.price}}</p>
+                <h4>{{product.name}}</h4>
               </div>
             </a>
           </div>
         </div>
       </div>
-      <!-- Product Catagories Area End -->
-    </div>
 
+    </div>
   </div>
 </template>
 
 <script>
+  import { products } from '../../db.json' //const products = db.products
   export default {
     name: 'HomePage',
     data () {
       return {
-        msg: 'Welcome to Your Vue.js App'
+        products
       }
     }
   }
