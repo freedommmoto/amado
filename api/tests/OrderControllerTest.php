@@ -1,6 +1,7 @@
 <?php
 
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use App\Models\Products;
 
 class OrderControllerTest extends TestCase
 {
@@ -34,7 +35,6 @@ class OrderControllerTest extends TestCase
             'error'
         ]);
     }
-
 
     public function testSendOrderWithAllData()
     {
