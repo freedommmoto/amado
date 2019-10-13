@@ -72,10 +72,19 @@
                     return JSON.parse(localStorage.getItem("customerProducts"));
                 },
                 set customerProducts(value) {
-                    if (this.customerProducts) {
-                        localStorage.setItem("customerProducts", JSON.stringify([...this.customerProducts, value]));
-                    } else {
-                        localStorage.setItem("customerProducts", JSON.stringify([value]));
+                    if (value.id) {
+                        if (!this.customerProducts) {
+                            localStorage.setItem("customerProducts", JSON.stringify([value]));
+                        }
+
+                        let index = this.customerProducts.findIndex(x => x.id === value.id)
+                        if (index > -1) {
+                            let customerProducts = this.customerProducts;
+                            customerProducts[index].stock += 1;
+                            localStorage.setItem("customerProducts", JSON.stringify(customerProducts));
+                        } else {
+                            localStorage.setItem("customerProducts", JSON.stringify([...this.customerProducts, value]));
+                        }
                     }
                 }
             }
