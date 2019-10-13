@@ -22,7 +22,7 @@
                         <tr v-for="(product,idx) in this.customerProducts">
                             <template v-if="product">
                                 <td class="cart_product_img">
-                                    <a href="#"><img :src="`static/img/bg-img/${product.img}`" alt="Product"></a>
+                                    <a href="#"><img :src="`${apiPart}/img/${product.id_product}.jpg`" alt="Product"></a>
                                 </td>
                                 <td class="cart_product_desc">
                                     <h5>{{product.name}}</h5>
@@ -90,7 +90,7 @@
             async getProductList() {
                 try {
                     const res = await axios.get(
-                        `${this.apiPart}/product`
+                        `${this.apiPart}/product/all`
                     )
                     this.allProducts = res.data.products
 
@@ -99,7 +99,7 @@
                 }
             },
             updateCustomerProducts(product, action) {
-                if (product.id) {
+                if (product.id_product) {
                     let index = this.customerProducts.findIndex(x => x.id === product.id)
                     if (index > -1) {
                         let customerProducts = this.customerProducts;

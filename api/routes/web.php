@@ -21,8 +21,12 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-$router->get('/product', [
+$router->get('/product/test', [
     'as' => 'product', 'uses' => 'MockController@getTest'
+]);
+
+$router->get('/product/all', [
+    'as' => 'productAll', 'uses' => 'ProductController@getAll'
 ]);
 
 $router->put('/product/{id}/update', [

@@ -10,22 +10,17 @@ use App\Models\Products;
 
 class OrderController extends Controller
 {
-    private $order;
-    private $products;
-
-    public function __construct()
-    {
-        $this->order = new Order();
-    }
 
     public function newOrder(Request $request): JsonResponse
     {
         try {
             $products = $this->validateNewOrder($request);
+            if (!Products::reduceStock($products)) {
+                throw new \Exception('stock is not enough');
+            }
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
-        //$this->products::reduceStock($products);
         $orderID = Order::addNewOrder($request);
         OrderProduct::addNewOrderProduct($products, $orderID);
 
@@ -41,7 +36,9 @@ class OrderController extends Controller
         ]);
 
         $products = json_decode($request->input('product'), false);
-        if (!isset($products[0]->id)) {
+        $firstProduct = reset($products);
+
+        if (!isset($firstProduct->id_product)) {
             throw new \Exception('no product in this order');
         }
         return $products;

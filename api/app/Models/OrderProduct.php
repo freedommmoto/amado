@@ -8,7 +8,7 @@ class OrderProduct extends Model
 {
     protected
         $table = 'order_product',
-        $primaryKey = 'order_product_id';
+        $primaryKey = 'id_order_product';
 
     const CREATED_AT = 'created';
     const UPDATED_AT = 'modified';
@@ -25,9 +25,9 @@ class OrderProduct extends Model
     {
         foreach ($products as $product) {
             $model = new self();
-            $model->product_id = $product->id;
+            $model->id_product = $product->id_product;
             $model->qty = $product->stock;
-            $model->order_id = $orderID;
+            $model->id_order = $orderID;
             $model->save();
         }
 

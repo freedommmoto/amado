@@ -38,7 +38,8 @@
                          v-bind:style="[product.stock > 0 ? {} : {opacity:0.4}]"
                     >
                         <a href="#" @click="activeProduct(product)">
-                            <img :src="`/static/img/bg-img/${product.img}`" :alt="`/static/img/bg-img/${product.name}`">
+                            <img :src="`${apiPart}/img/${product.id_product}.jpg`"
+                                 :alt="`${apiPart}/img/${product.id_product}.jpg`">
                             <div class="hover-content">
                                 <div class="line"></div>
                                 <p>From ${{product.price}}</p>
@@ -71,19 +72,19 @@
                 get customerProducts() {
                     return JSON.parse(localStorage.getItem("customerProducts"));
                 },
-                set customerProducts(value) {
-                    if (value.id) {
+                set customerProducts(newProduct) {
+                    if (newProduct.id_product) {
                         if (!this.customerProducts) {
-                            localStorage.setItem("customerProducts", JSON.stringify([value]));
+                            localStorage.setItem("customerProducts", JSON.stringify([newProduct]));
                         }
 
-                        let index = this.customerProducts.findIndex(x => x.id === value.id)
+                        let index = this.customerProducts.findIndex(oldProduct => oldProduct.id_product === newProduct.id_product)
                         if (index > -1) {
                             let customerProducts = this.customerProducts;
                             customerProducts[index].stock += 1;
                             localStorage.setItem("customerProducts", JSON.stringify(customerProducts));
                         } else {
-                            localStorage.setItem("customerProducts", JSON.stringify([...this.customerProducts, value]));
+                            localStorage.setItem("customerProducts", JSON.stringify([...this.customerProducts, newProduct]));
                         }
                     }
                 }
@@ -137,7 +138,7 @@
             async getProductList() {
                 try {
                     const res = await axios.get(
-                        `${this.apiPart}/product`
+                        `${this.apiPart}/product/all`
                     )
                     this.products = res.data.products
                     let $this = this
@@ -161,7 +162,7 @@
                     }).then((result) => {
                         if (result.value) {
                             this.customerProducts = product
-                            this.$root.$data.numOrder = this.customerProducts.length
+                            this.$root.$data.numOrder = (this.customerProducts) ? this.customerProducts.length : 0
 
                             Swal.fire({
                                 type: 'success',

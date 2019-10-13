@@ -28,7 +28,7 @@ class ProductsModelTest extends TestCase
         ]);
         $id = Products::addNewProducts($request);
 
-        $customerProuct = json_decode('[{"id":' . $id . ',"name":"photo-changsuek-250","price":250,"stock":2,"show":1}]', false);
+        $customerProuct = json_decode('[{"id_product":' . $id . ',"name":"photo-changsuek-250","price":250,"stock":2,"show":1}]', false);
         Products::reduceStock($customerProuct);
 
         $this->seeInDatabase('products', ['id_product' => $id, 'stock' => 3]);

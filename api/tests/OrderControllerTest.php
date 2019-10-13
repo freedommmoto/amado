@@ -38,7 +38,7 @@ class OrderControllerTest extends TestCase
 
     public function testSendOrderWithAllData()
     {
-        $data = ['firstName' => 'patara', 'product' => '[{"id":8,"name":"photo-changsuek-250","price":250,"img":"8.jpg","stock":1,"show":1}]', 'email' => 'm.c.kmitl@gmail.com'];
+        $data = ['firstName' => 'patara', 'product' => '[{"id_product":1,"name":"asd","price":250,"stock":1,"show":1}]', 'email' => 'm.c.kmitl@gmail.com'];
         $response = $this->json('POST', '/order/new', $data);
 
         $response->seeJson(

@@ -20,6 +20,8 @@ class Products extends Model
     protected $dateFormat = 'Y-m-d H:i:sP';
     public $timestamps = false;
 
+    public static $returnable = ['name', 'stock', 'price', 'show'];
+
     /**
      * @param Request $request
      * @return int
@@ -42,13 +44,12 @@ class Products extends Model
     final public static function reduceStock(array $customerProducts): bool
     {
         foreach ($customerProducts as $customerProduct) {
-            $model = self::where('id_product', $customerProduct->id)->first();
+            $model = self::where('id_product', $customerProduct->id_product)->first();
             $model->stock = (int)$model->stock - (int)$customerProduct->stock;
-
-            if ($model->stock < 1) {
+            if ($model->stock < 0) {
                 return false;
             }
-            $model->save(['timestamps' => false]);
+            $model->save();
         }
 
         return true;

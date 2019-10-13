@@ -9,7 +9,7 @@ class Order extends Model
 {
     protected
         $table = 'order',
-        $primaryKey = 'order_id';
+        $primaryKey = 'id_order';
 
     const CREATED_AT = 'created';
     const UPDATED_AT = 'modified';
@@ -24,6 +24,6 @@ class Order extends Model
         $model->first_name = $request->input('firstName');
         $model->save();
 
-        return $model->order_id;
+        return $model->id_order;
     }
 }
