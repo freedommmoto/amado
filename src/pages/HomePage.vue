@@ -42,7 +42,8 @@
                             <div class="hover-content">
                                 <div class="line"></div>
                                 <p>From ${{product.price}}</p>
-                                <h4>{{product.name}}</h4>
+                                <h4 v-if="product.stock > 0">{{product.name}}</h4>
+                                <h4 v-else>{{product.name}} - Sold out</h4>
                             </div>
                         </a>
                     </div>
@@ -63,14 +64,25 @@
         name: 'HomePage',
         data() {
             return {
-                apiPart:  this.$root.$data.apiPart,
+                apiPart: this.$root.$data.apiPart,
                 countFilter: 0,
                 products: [],
                 filter: '',
+                get customerProducts() {
+                    return JSON.parse(localStorage.getItem("customerProducts"));
+                },
+                set customerProducts(value) {
+                    if (this.customerProducts) {
+                        localStorage.setItem("customerProducts", JSON.stringify([...this.customerProducts, value]));
+                    } else {
+                        localStorage.setItem("customerProducts", JSON.stringify([value]));
+                    }
+                }
             }
         },
         mounted() {
-            this.getProduct()
+            this.getProductList()
+            this.$root.$data.numOrder = (this.customerProducts) ? this.customerProducts.length : 0
         },
         computed: {
             filterProduct() {
@@ -113,7 +125,7 @@
 
                 msnry.layout()
             },
-            async getProduct() {
+            async getProductList() {
                 try {
                     const res = await axios.get(
                         `${this.apiPart}/product`
@@ -139,9 +151,8 @@
                         confirmButtonText: 'Yes'
                     }).then((result) => {
                         if (result.value) {
-
-                            product.stock = 0;
-                            product.name = `${product.name} - Sold out`
+                            this.customerProducts = product
+                            this.$root.$data.numOrder = this.customerProducts.length
 
                             Swal.fire({
                                 type: 'success',

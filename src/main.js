@@ -18,6 +18,7 @@ new Vue({
     template: '<App/>',
     data: {
         config,
-        apiPart: config.apiPart
+        apiPart: config.apiPart,
+        numOrder : 0,
     }
 })
