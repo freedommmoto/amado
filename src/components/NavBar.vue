@@ -11,10 +11,14 @@
             </div>
             <div class="cart-fav-search mb-100">
                 <a href="/" class="cart-nav"><img src="static/img/core-img/home.png" alt=""> Home </a>
-                <a href="/cart" class="cart-nav"><img src="static/img/core-img/cart.png" alt=""> Cart <span>({{numOrder}})</span></a>
-                <a href="/checkout" class="fav-nav"><img src="static/img/core-img/favorites.png" alt=""> CheckOut</a>
-                <a v-if="isHomePage" href="#" class="search-nav"><img src="static/img/core-img/search.png">
-                    Search</a>
+                <template v-if="!isAdmin">
+                    <a href="/cart" class="cart-nav"><img src="static/img/core-img/cart.png" alt=""> Cart <span>({{numOrder}})</span></a>
+                    <a href="/checkout" class="fav-nav"><img src="static/img/core-img/favorites.png" alt="">
+                        CheckOut</a>
+                    <a v-if="isHomePage" href="#" class="search-nav"><img src="static/img/core-img/search.png">
+                        Search</a>
+                </template>
+
             </div>
             <!-- Social Button -->
             <div class="social-info d-flex justify-content-between">
@@ -40,19 +44,13 @@
         },
         computed: {
             numOrder() {
-                if (this.isHomePage || this.isCartPage) {
-                    return this.$root.$data.numOrder
-                }
-                if (JSON.parse(localStorage.getItem("customerProducts"))) {
-                    return JSON.parse(localStorage.getItem("customerProducts")).length
-                }
-                return 0
+                return this.$root.$data.numOrder
             },
             isHomePage() {
                 return (this.$route.path === '/')
             },
-            isCartPage() {
-                return (this.$route.path === '/cart')
+            isAdmin() {
+                return (this.$route.path === '/admin')
             }
         },
     }

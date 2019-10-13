@@ -10,7 +10,6 @@
                                 <h2>Checkout</h2>
                             </div>
 
-
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <input type="text" class="form-control" v-model="firstName" value=""
@@ -41,15 +40,6 @@
                                               rows="10"
                                               placeholder="Leave a comment about your order"></textarea>
                                 </div>
-
-                                <!--                                <div class="col-12">-->
-                                <!--                                    <div class="custom-control custom-checkbox d-block">-->
-                                <!--                                        <input type="checkbox" class="custom-control-input" id="customCheck3"-->
-                                <!--                                               name="ship">-->
-                                <!--                                        <label class="custom-control-label" for="customCheck3">Ship to a different-->
-                                <!--                                            address</label>-->
-                                <!--                                    </div>-->
-                                <!--                                </div>-->
                             </div>
 
                         </div>
@@ -64,12 +54,12 @@
                             </ul>
 
                             <div class="payment-method">
-                                <!-- Cash on delivery -->
+
                                 <div class="custom-control custom-checkbox mr-sm-2">
                                     <input type="checkbox" class="custom-control-input" id="cod" checked>
                                     <label class="custom-control-label" for="cod">Cash on Delivery</label>
                                 </div>
-                                <!-- Paypal -->
+
                                 <div class="custom-control custom-checkbox mr-sm-2">
                                     <input type="checkbox" class="custom-control-input" id="paypal">
                                     <label class="custom-control-label" for="paypal">Paypal <img class="ml-15"
@@ -106,38 +96,70 @@
                 zipCode: '',
                 phoneNumber: '',
                 comment: '',
+                formData: {},
                 customerProducts: [],
             }
         }, mounted() {
             this.customerProducts = JSON.parse(localStorage.getItem("customerProducts"));
+            this.$root.$data.numOrder = (this.customerProducts) ? this.customerProducts.length : 0
+            this.totalPrice = this.sumPrice(this.customerProducts, 'price');
         }, methods: {
-            async formSubmit(e) {
+            formSubmit(e) {
                 e.preventDefault();
 
-                const config = {headers: {'content-type': 'multipart/form-data'}}
-                let formData = new FormData();
-                formData.append('firstName', this.firstName);
-                formData.append('lastName', this.lastName);
-                formData.append('product', JSON.stringify(this.customerProducts));
-                formData.append('email', this.email);
-                formData.append('streetAddress', this.streetAddress);
-                formData.append('zipCode', this.zipCode);
-                formData.append('phoneNumber', this.phoneNumber);
-                formData.append('comment', this.comment);
+                let $this = this
+                Swal.fire({
+                    title: `Are you sure to confirm this order ?`,
+                    type: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes'
+                }).then((result) => {
+                    if (result.value) {
+                        this.sendOrderToApi($this)
+                    }
+                })
+            },
+            async sendOrderToApi($this) {
 
+                const config = {headers: {'content-type': 'multipart/form-data'}}
                 let response = null
-                response = await axios.post(`${this.apiPart}/order/new`, formData, config)
+                $this.setUpData($this);
+
+                response = await axios.post(`${this.apiPart}/order/new`, $this.formData, config)
                 if (response.data.success) {
                     Swal.fire({
                         type: 'success',
                         title: 'you order have been send to us',
                     })
+                    //clear order after send to api
+                    localStorage.removeItem("customerProducts");
+                    $this.customerProducts = [];
+                    $this.$root.$data.numOrder = 0;
+                    $this.totalPrice = 0;
                 } else {
                     Swal.fire({
                         type: 'warning',
                         title: response.data.error,
                     })
                 }
+            },
+            setUpData($this) {
+                $this.formData = new FormData();
+                $this.formData.append('firstName', $this.firstName);
+                $this.formData.append('lastName', $this.lastName);
+                $this.formData.append('product', JSON.stringify($this.customerProducts));
+                $this.formData.append('email', $this.email);
+                $this.formData.append('streetAddress', $this.streetAddress);
+                $this.formData.append('zipCode', $this.zipCode);
+                $this.formData.append('phoneNumber', $this.phoneNumber);
+                $this.formData.append('comment', $this.comment);
+            },
+            sumPrice(items, prop) {
+                return items.reduce(function (a, b) {
+                    return a + b[prop] * b.stock;
+                }, 0);
             }
         }
     }
