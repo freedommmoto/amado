@@ -59,9 +59,9 @@
                 <div class="cart-summary">
                     <h5>Cart Total</h5>
                     <ul class="summary-table">
-                        <li><span>subtotal:</span> <span>$140.00</span></li>
+                        <!--                        <li><span>subtotal:</span> <span>$140.00</span></li>-->
                         <li><span>delivery:</span> <span>Free</span></li>
-                        <li><span>total:</span> <span>$140.00</span></li>
+                        <li><span>total:</span> <span>${{totalPrice}}</span></li>
                     </ul>
                     <div class="cart-btn mt-100">
                         <a href="/checkout" class="btn amado-btn w-100">Checkout</a>
@@ -83,6 +83,7 @@
                 apiPart: this.$root.$data.apiPart,
                 allProducts: [],
                 customerProducts: [],
+                totalPrice: 0,
             }
         },
         methods: {
@@ -108,18 +109,28 @@
                             customerProducts[index].stock -= 1;
                             if (customerProducts[index].stock < 1) {
                                 customerProducts.splice(index, 1);
+                                this.$root.$data.numOrder--;
                             }
                         }
 
                         localStorage.setItem("customerProducts", JSON.stringify(customerProducts));
                         this.customerProducts = JSON.parse(localStorage.getItem("customerProducts"));
+                        this.totalPrice = this.sumPrice(this.customerProducts, 'price');
+
                     }
                 }
+            },
+            sumPrice(items, prop) {
+                return items.reduce(function (a, b) {
+                    return a + b[prop] * b.stock;
+                }, 0);
             }
         },
         mounted() {
             this.getProductList()
             this.customerProducts = JSON.parse(localStorage.getItem("customerProducts"));
+            this.$root.$data.numOrder = (this.customerProducts) ? this.customerProducts.length : 0
+            this.totalPrice = this.sumPrice(this.customerProducts, 'price');
         },
     }
 </script>

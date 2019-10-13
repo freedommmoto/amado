@@ -40,7 +40,7 @@
         },
         computed: {
             numOrder() {
-                if (this.isHomePage) {
+                if (this.isHomePage || this.isCartPage) {
                     return this.$root.$data.numOrder
                 }
                 if (JSON.parse(localStorage.getItem("customerProducts"))) {
@@ -50,6 +50,9 @@
             },
             isHomePage() {
                 return (this.$route.path === '/')
+            },
+            isCartPage() {
+                return (this.$route.path === '/cart')
             }
         },
     }
