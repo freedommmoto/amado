@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Products extends Model
 {
     protected
-        $table = 'bookings',
-        $primaryKey = 'id_booking';
+        $table = 'products',
+        $primaryKey = 'id_product';
 
     const CREATED_AT = 'created';
     const UPDATED_AT = 'modified';

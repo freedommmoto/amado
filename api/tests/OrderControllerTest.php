@@ -6,13 +6,6 @@ class OrderControllerTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function rebookControllerDataProviderSuccessfully()
-    {
-        return [
-            [1]
-        ];
-    }
-
     protected function setUp(): void
     {
         parent::setUp();

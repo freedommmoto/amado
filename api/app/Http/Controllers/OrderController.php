@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\OrderProduct;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Order;
@@ -15,23 +16,23 @@ class OrderController extends Controller
     public function __construct()
     {
         $this->order = new Order();
-        $this->products = new Products();
     }
 
     public function newOrder(Request $request): JsonResponse
     {
         try {
-            $this->validateNewOrder($request);
+            $products = $this->validateNewOrder($request);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
-//        $this->products->reduceStock($product);
-//        $this->order->addNewOrder($request, $product);
+        //$this->products::reduceStock($products);
+        $orderID = Order::addNewOrder($request);
+        OrderProduct::addNewOrderProduct($products, $orderID);
 
         return response()->json(['success' => true]);
     }
 
-    private function validateNewOrder(Request $request)
+    private function validateNewOrder(Request $request): array
     {
         $this->validate($request, [
             'firstName' => 'required',
@@ -39,9 +40,10 @@ class OrderController extends Controller
             'email' => 'required|email',
         ]);
 
-        $product = json_decode($request->input('product'));
-        if (!isset($product[0]->id)) {
+        $products = json_decode($request->input('product'), false);
+        if (!isset($products[0]->id)) {
             throw new \Exception('no product in this order');
         }
+        return $products;
     }
 }
