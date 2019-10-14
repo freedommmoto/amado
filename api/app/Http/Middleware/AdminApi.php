@@ -8,17 +8,14 @@ use Closure;
 class AdminApi
 {
     /**
-     * Handle an incoming request from EC-Api.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     * @param string|null $guard
-     * @return mixed
+     * @param $request
+     * @param Closure $next
+     * @return \Illuminate\Http\JsonResponse|mixed
      */
     public function handle($request, Closure $next)
     {
-        $userName = $request->all('userName');
-        $token = $request->json('token');
+        $userName = $request->input('userName');
+        $token = $request->input('token');
 
         if (!is_string($userName)) {
             return response()->json(['message' => 'Invalid Request. userName'], 422);

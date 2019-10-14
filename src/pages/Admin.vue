@@ -121,23 +121,45 @@
         name: 'Admin',
         data() {
             return {
-                apiPart:  this.$root.$data.apiPart,
+                apiPart: this.$root.$data.apiPart,
                 products: [],
                 productsAll: [],
                 actions: [
-                    {'value': 0, 'text': 'Hide'},
-                    {'value': 1, 'text': 'Show'},
-                    {'value': -1, 'text': 'Remove'},
+                    {'value': false, 'text': 'Hide'},
+                    {'value': true, 'text': 'Show'},
+                    {'value': null, 'text': 'Remove'},
                 ],
                 name: '',
                 image: '',
                 newImg: null,
+                get headers() {
+                    return {
+                        headers: {
+                            'content-type': 'multipart/form-data'
+                        }
+                    }
+                },
+                get userData() {
+                    return JSON.parse(sessionStorage.getItem("userData"));
+                }
             }
         },
         mounted() {
             this.getProduct()
+            this.isLogin()
         },
         methods: {
+            async isLogin() {
+                try {
+                    let formData = new FormData();
+                    formData.append('userName', this.userData.userName);
+                    formData.append('token', this.userData.token);
+
+                    await axios.post(`${this.apiPart}/user/auth`, formData, this.headers)
+                } catch ({message}) {
+                    this.$router.push('login')
+                }
+            },
             async getProduct() {
                 try {
                     const res = await axios.get(
