@@ -21,14 +21,14 @@ npm run build --report
 
 
 
-![Optional Text](../amado/screenshot/ss1.png)
+![Optional Text](https://github.com/freedommmoto/amado/blob/master/screenshot/ss1.png)
 
-![Optional Text](../amado/screenshot/ss2.png)
+![Optional Text](https://github.com/freedommmoto/amado/blob/master/screenshot/ss2.png)
 
-![Optional Text](../amado/screenshot/ss3.png)
+![Optional Text](https://github.com/freedommmoto/amado/blob/master/screenshot/ss3.png)
 
-![Optional Text](../amado/screenshot/ss4.png)
+![Optional Text](https://github.com/freedommmoto/amado/blob/master/screenshot/ss4.png)
 
-![Optional Text](../amado/screenshot/ss5.png)
+![Optional Text](https://github.com/freedommmoto/amado/blob/master/screenshot/ss5.png)
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
