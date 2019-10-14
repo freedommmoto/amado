@@ -22,6 +22,11 @@ class Order extends Model
         $model = new self();
         $model->email = $request->input('email');
         $model->first_name = $request->input('firstName');
+        $model->last_name = $request->input('lastName');
+        $model->address = $request->input('streetAddress');
+        $model->zip_code = $request->input('zipCode');
+        $model->phone = $request->input('phoneNumber');
+        $model->comment = $request->input('comment');
         $model->save();
 
         return $model->id_order;

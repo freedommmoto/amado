@@ -14,8 +14,8 @@ class AdminApi
      */
     public function handle($request, Closure $next)
     {
-        $userName = $request->input('userName');
-        $token = $request->input('token');
+        $userName = $request->header('userName') ?? $request->input('userName');
+        $token = $request->header('token') ?? $request->input('token');
 
         if (!is_string($userName)) {
             return response()->json(['message' => 'Invalid Request. userName'], 422);
