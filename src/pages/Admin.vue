@@ -24,7 +24,8 @@
 
                         <tr v-for="(product,idx) in this.products">
                             <td class="cart_product_img">
-                                <a href="#"><img :src="`static/img/bg-img/${product.img}`" alt="Product"></a>
+                                <a href="#">
+                                    <img :src="`${apiPart}/img/${product.id_product}.jpg`" alt="Product"></a>
                                 <input class="img"
                                        type="file" accept="image/*" @change="uploadImage($event,idx)"
                                        :id="`file-input-id-${idx}`">
@@ -99,13 +100,10 @@
                                 </div>
                                 <div class="col-12 mb-3">
                                     <img :src="newImg" v-if="newImg">
-                                    <input class="form-control" type="file" accept="image/*"
-                                           @change="onImageChange" id="file-input">
+                                    <input class="form-control" type="file" accept="image/*" @change="onImageChange" id="file-input">
                                 </div>
                             </div>
-                            <!--                            <a href="#">-->
                             <button type="submit" class="btn amado-btn w-100">Submit</button>
-                            <!--                            </a>-->
                         </form>
                     </div>
 
@@ -143,7 +141,7 @@
             async getProduct() {
                 try {
                     const res = await axios.get(
-                        `${this.apiPart}/product`
+                        `${this.apiPart}/product/all`
                     )
                     if (res.data.products[0] && res.data.products[1]) {
                         this.products = [...this.products, res.data.products[0], res.data.products[1]]
