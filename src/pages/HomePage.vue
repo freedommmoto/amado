@@ -45,7 +45,9 @@
                                     <div class="hover-content">
                                         <div class="line"></div>
                                         <p>From ${{product.price}}</p>
-                                        <h4 v-if="product.stock > 0">{{product.name}}</h4>
+                                        <template v-if="product.stock > 0">
+                                            <h4>{{product.name}}</h4> <h6>({{product.stock}}) Left</h6>
+                                        </template>
                                         <h4 v-else>{{product.name}} - Sold out</h4>
                                     </div>
                                 </a>
