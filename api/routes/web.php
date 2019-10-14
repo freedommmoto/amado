@@ -33,10 +33,22 @@ $router->put('/product/{id}/update', [
     'as' => 'picture', 'uses' => 'ProductController@uploadImage'
 ]);
 
-$router->post('/product/add', [
-    'as' => 'picture', 'uses' => 'ProductController@uploadImage'
-]);
-
 $router->post('/order/new', [
     'as' => 'newOrder', 'uses' => 'OrderController@newOrder'
 ]);
+
+$router->post('/user/login', [
+    'as' => 'userLogin', 'uses' => 'UserController@login'
+]);
+
+
+$router->group(['middleware' => 'admin-api'], function () use ($router) {
+    $router->post('/product/add', [
+        'as' => 'picture', 'uses' => 'ProductController@uploadImage'
+    ]);
+
+    $router->post('/user/auth', [
+        'as' => 'auth', 'uses' => 'UserController@auth'
+    ]);
+
+});
