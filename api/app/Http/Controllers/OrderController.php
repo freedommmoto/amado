@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\OrderProduct;
+use App\Service\PusherNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Order;
@@ -23,7 +24,8 @@ class OrderController extends Controller
         }
         $orderID = Order::addNewOrder($request);
         OrderProduct::addNewOrderProduct($products, $orderID);
-
+        $pusher = new PusherNotification();
+        $pusher->sendUpdateNotificationToUI();
         return response()->json(['success' => true]);
     }
 
