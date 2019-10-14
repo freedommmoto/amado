@@ -19,6 +19,7 @@ new Vue({
     data: {
         config,
         apiPart: config.apiPart,
-        numOrder : 0,
+        pusherKey: config.pusherKey,
+        numOrder: 0,
     }
 })

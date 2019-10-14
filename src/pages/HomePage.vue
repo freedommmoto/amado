@@ -33,21 +33,26 @@
 
             <div class="products-catagories-area clearfix">
                 <div class="amado-pro-catagory clearfix ">
-                    <div class="single-products-catagory clearfix" :key='idx'
-                         v-for="(product,idx) in this.filterProduct"
-                         v-bind:style="[product.stock > 0 ? {} : {opacity:0.4}]"
-                    >
-                        <a href="#" @click="activeProduct(product)">
-                            <img :src="`${apiPart}/img/${product.id_product}.jpg`"
-                                 :alt="`${apiPart}/img/${product.id_product}.jpg`">
-                            <div class="hover-content">
-                                <div class="line"></div>
-                                <p>From ${{product.price}}</p>
-                                <h4 v-if="product.stock > 0">{{product.name}}</h4>
-                                <h4 v-else>{{product.name}} - Sold out</h4>
+
+                    <template v-for="(product,idx) in this.filterProduct">
+                        <template v-if="product.show > 0">
+                            <div class="single-products-catagory clearfix" :key='idx'
+                                 v-bind:style="[product.stock > 0 ? {} : {opacity:0.4}]"
+                            >
+                                <a href="#" @click="activeProduct(product)">
+                                    <img :src="`${apiPart}/img/${product.id_product}.jpg`"
+                                         :alt="`${apiPart}/img/${product.id_product}.jpg`">
+                                    <div class="hover-content">
+                                        <div class="line"></div>
+                                        <p>From ${{product.price}}</p>
+                                        <h4 v-if="product.stock > 0">{{product.name}}</h4>
+                                        <h4 v-else>{{product.name}} - Sold out</h4>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
-                    </div>
+                        </template>
+                    </template>
+
                 </div>
             </div>
 
@@ -60,12 +65,14 @@
     import Swal from 'sweetalert2'
     import axios from 'axios'
     import Masonry from 'masonry-layout'
+    import Pusher from 'pusher-js';
 
     export default {
         name: 'HomePage',
         data() {
             return {
                 apiPart: this.$root.$data.apiPart,
+                pusherKey: this.$root.$data.pusherKey,
                 countFilter: 0,
                 products: [],
                 filter: '',
@@ -114,12 +121,25 @@
             }
         },
         created() {
-            document.addEventListener("resize", this.myEventHandler);
+            //document.addEventListener("resize", this.myEventHandler);
+            this.loadPusher()
         },
         destroyed() {
             document.removeEventListener("resize", this.myEventHandler);
         },
         methods: {
+            loadPusher() {
+                let $this = this;
+                this.pusher = new Pusher($this.pusherKey, {
+                    cluster: 'ap1',
+                    forceTLS: true
+                });
+
+                let channel = this.pusher.subscribe('update-product-channel');
+                channel.bind('update-product-event', function (data) {
+                    $this.getProductList()
+                });
+            },
             renderMasonry() {
                 const grid = document.querySelector('.amado-pro-catagory')
                 const singleProCata = '.single-products-catagory'
