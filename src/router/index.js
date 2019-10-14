@@ -4,8 +4,19 @@ import HomePage from '@/pages/HomePage'
 import Cart from '@/pages/Cart'
 import CheckOut from '@/pages/CheckOut'
 import Admin from '@/pages/Admin'
+import Login from '@/pages/Login'
 
 Vue.use(Router)
+
+function guard(to, from, next){
+  let isLoggedIn = false;
+  if(isLoggedIn) {
+    // or however you store your logged in state
+    next(); // allow to enter route
+  } else{
+    next('/login'); // go to '/login';
+  }
+}
 
 export default new Router({
   mode: 'history',
@@ -20,7 +31,10 @@ export default new Router({
       path: '/checkout', component: CheckOut
     },
     {
-      path: '/admin', component: Admin
+      path: '/admin', component: Admin , beforeEnter: guard
+    },
+    {
+      path: '/login', component: Login
     }
   ]
 })

@@ -1400,4 +1400,35 @@ img {
 
 /* ##### The End ##### */
 
+.img_login {
+  float: left;
+  z-index: -1;
+  width:800px;
+}
+.login-row {
+  border: 1px solid #ccc;
+  position: absolute;
+  z-index: 2;
+  min-height: 600px;
+  /*float: right;*/
+  padding: 20px;
+  top: 40px;
+  right: 40px;
+  max-width: 350px;
+  background: #F5F7FB;
+}
+@media only screen and (min-width: 770px) and (max-width: 1199px) {
+  .img_login {
+    display: none;
+  }
+}
+@media only screen and (min-width: 1500px) {
+  .img_login {
+    /*width: 120%;*/
+  }
+  .login-row {
+    right: 20%;
+  }
+}
+
 /*# sourceMappingURL=core-style.css.map */

@@ -20,6 +20,7 @@ new Vue({
         config,
         apiPart: config.apiPart,
         pusherKey: config.pusherKey,
+        loginKey: '',
         numOrder: 0,
     }
 })
