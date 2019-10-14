@@ -28,7 +28,9 @@ class OrderProduct extends Model
             $model->id_product = $product->id_product;
             $model->qty = $product->qty;
             $model->id_order = $orderID;
-            $model->save();
+            if(!$model->save()){
+                return false;
+            }
         }
 
         return true;

@@ -2,36 +2,49 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\OrderProduct;
 use App\Service\PusherNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use App\Models\Order;
-use App\Models\Products;
+use App\Facades\NewOrderFacade;
 
 class OrderController extends Controller
 {
+    private $pusher;
 
+    private $newOrder;
+
+    /**
+     * OrderController constructor.
+     */
+    public function __construct()
+    {
+        $this->pusher = new PusherNotification();
+        $this->newOrder = new NewOrderFacade();
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function newOrder(Request $request): JsonResponse
     {
         try {
             $products = $this->validateNewOrder($request);
-            if (!Products::reduceStock($products)) {
-                throw new \Exception('stock is not enough');
-            }
-
-            $orderID = Order::addNewOrder($request);
-            OrderProduct::addNewOrderProduct($products, $orderID);
-            $pusher = new PusherNotification();
-            $pusher->sendUpdateNotificationToUI();
+            $this->newOrder->process($request, $products);
+            $this->pusher->sendUpdateNotificationToUI();
 
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'error' => $e->getMessage().$e->getFile().$e->getLine()]);
+            return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
 
         return response()->json(['success' => true]);
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     * @throws \Illuminate\Validation\ValidationException
+     */
     private function validateNewOrder(Request $request): array
     {
         $this->validate($request, [
