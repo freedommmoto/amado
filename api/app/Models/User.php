@@ -33,7 +33,7 @@ class User extends Model
             return false;
         }
 
-        if(empty($tokenArray[1])){
+        if (empty($tokenArray[1])) {
             return false;
         }
 
@@ -55,6 +55,10 @@ class User extends Model
     final public static function processLogin(string $userName, string $password): array
     {
         $user = self::where('user_name', $userName)->first();
+        if (empty($user)) {
+            return [];
+        }
+
         if (Hash::check($password, $user->pass_word)) {
             $token = Crypt::encryptString($userName . ',' . date('Y-m-d H:i:s'));
             if ($user->save()) {

@@ -9,8 +9,8 @@ import Login from '@/pages/Login'
 Vue.use(Router)
 
 function guard(to, from, next){
-  let isLoggedIn = false;
-  if(isLoggedIn) {
+  let userData = JSON.parse(sessionStorage.getItem("userData"));
+  if(userData) {
     // or however you store your logged in state
     next(); // allow to enter route
   } else{
