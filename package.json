@@ -10,9 +10,12 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.19.0",
     "masonry-layout": "^4.2.2",
+    "pusher-js": "^5.0.2",
     "sweetalert2": "^8.18.3",
     "vue": "^2.5.2",
+    "vue-masonry-css": "^1.0.3",
     "vue-router": "^3.0.1"
   },
   "devDependencies": {

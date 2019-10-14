@@ -24,7 +24,11 @@
 
                         <tr v-for="(product,idx) in this.products">
                             <td class="cart_product_img">
-                                <a href="#"><img :src="`static/img/bg-img/${product.img}`" alt="Product"></a>
+                                <a href="#">
+                                    <img :src="`${apiPart}/img/${product.id_product}.jpg`" alt="Product"></a>
+                                <input class="img"
+                                       type="file" accept="image/*" @change="uploadImage($event,idx)"
+                                       :id="`file-input-id-${idx}`">
                             </td>
                             <td class="cart_product_desc">
                                 <span>
@@ -81,26 +85,26 @@
                     <h4>Add New Products</h4>
 
                     <div style="padding: 10px;">
-                        <form action="#" method="post">
+                        <form @submit="formSubmit" enctype="multipart/form-data">
                             <div class="row">
                                 <div class="col-12 mb-3">
-                                    <input type="email" class="form-control" id="email" placeholder="Email" value="">
+                                    <input type="text" class="form-control" name="name" placeholder="Product Name"
+                                           value="">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <input type="text" class="form-control" id="price" placeholder="price" value="">
+                                    <input type="number" class="form-control" name="price" placeholder="price" value="">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <input type="number" class="form-control" id="quantity" min="0"
-                                           placeholder="quantity" value="">
+                                    <input type="number" class="form-control" name="quantity" placeholder="quantity"
+                                           value="">
                                 </div>
                                 <div class="col-12 mb-3">
-                                    <textarea name="comment" class="form-control w-100" id="comment" cols="30" rows="10"
-                                              placeholder="Leave a comment about your order"></textarea>
+                                    <img :src="newImg" v-if="newImg">
+                                    <input class="form-control" type="file" accept="image/*" @change="onImageChange" id="file-input">
                                 </div>
-
                             </div>
+                            <button type="submit" class="btn amado-btn w-100">Submit</button>
                         </form>
-                        <a href="/checkout" class="btn amado-btn w-100">SAVE</a>
                     </div>
 
                 </div>
@@ -117,23 +121,49 @@
         name: 'Admin',
         data() {
             return {
+                apiPart: this.$root.$data.apiPart,
                 products: [],
                 productsAll: [],
                 actions: [
-                    {'value': 0, 'text': 'Hide'},
-                    {'value': 1, 'text': 'Show'},
-                    {'value': -1, 'text': 'Remove'},
+                    {'value': false, 'text': 'Hide'},
+                    {'value': true, 'text': 'Show'},
+                    {'value': null, 'text': 'Remove'},
                 ],
+                name: '',
+                image: '',
+                newImg: null,
+                get headers() {
+                    return {
+                        headers: {
+                            'content-type': 'multipart/form-data'
+                        }
+                    }
+                },
+                get userData() {
+                    return JSON.parse(sessionStorage.getItem("userData"));
+                }
             }
         },
         mounted() {
             this.getProduct()
+            this.isLogin()
         },
         methods: {
+            async isLogin() {
+                try {
+                    let formData = new FormData();
+                    formData.append('userName', this.userData.userName);
+                    formData.append('token', this.userData.token);
+
+                    await axios.post(`${this.apiPart}/user/auth`, formData, this.headers)
+                } catch ({message}) {
+                    this.$router.push('login')
+                }
+            },
             async getProduct() {
                 try {
                     const res = await axios.get(
-                        `http://api.amado.com/product`
+                        `${this.apiPart}/product/all`
                     )
                     if (res.data.products[0] && res.data.products[1]) {
                         this.products = [...this.products, res.data.products[0], res.data.products[1]]
@@ -148,6 +178,20 @@
             },
             showAll() {
                 this.products = this.productsAll
+            },
+            onImageChange(e) {
+                this.image = e.target.files[0];
+            },
+            async formSubmit(e) {
+                e.preventDefault();
+
+                const config = {headers: {'content-type': 'multipart/form-data'}}
+                let formData = new FormData();
+                formData.append('image', this.image);
+                // console.log(formData);
+
+                let response = await axios.post(`${this.apiPart}/product/add`, formData, config)
+                this.newImg = response.data.part;
             }
         }
     }
@@ -174,6 +218,10 @@
         overflow: auto !important;
         outline: none;
         width: 80%;
+    }
+
+    .img {
+        width: 108px;
     }
 
     .amado-btn {

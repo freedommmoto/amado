@@ -8,10 +8,19 @@ import VueMasonry from 'vue-masonry-css'
 Vue.use(VueMasonry);
 Vue.config.productionTip = false
 
+import {config} from '../env.json' //const products = db.products
+
 /* eslint-disable no-new */
 new Vue({
-  el: '#app',
-  router,
-  components: { App },
-  template: '<App/>'
+    el: '#app',
+    router,
+    components: {App},
+    template: '<App/>',
+    data: {
+        config,
+        apiPart: config.apiPart,
+        pusherKey: config.pusherKey,
+        loginKey: '',
+        numOrder: 0,
+    }
 })

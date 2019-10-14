@@ -1,8 +1,8 @@
 <template>
     <div id="app" class="main-content-wrapper">
-        <navbar :isAuth="isAuth" />
+        <navbar :isAuth="isAuth"/>
         <router-view/>
-        <footerWeb />
+        <footerWeb/>
     </div>
 </template>
 
@@ -19,8 +19,7 @@
         },
         data() {
             return {
-                isAuth: false,
-                counter: 0
+                isAuth: false
             }
         },
         beforeDestroy() {
@@ -29,9 +28,7 @@
         mounted() {
 
         },
-        methods: {
-
-        }
+        methods: {}
 
     }
 
