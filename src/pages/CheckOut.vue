@@ -158,7 +158,7 @@
             },
             sumPrice(items, prop) {
                 return items.reduce(function (a, b) {
-                    return a + b[prop] * b.stock;
+                    return a + b[prop] * b.qty;
                 }, 0);
             }
         }

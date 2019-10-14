@@ -26,7 +26,7 @@ class OrderProduct extends Model
         foreach ($products as $product) {
             $model = new self();
             $model->id_product = $product->id_product;
-            $model->qty = $product->stock;
+            $model->qty = $product->qty;
             $model->id_order = $orderID;
             $model->save();
         }

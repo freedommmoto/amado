@@ -41,8 +41,8 @@ class OrderModelTest extends TestCase
      */
     public function testCanSaveNewOrderProductSuccessfully()
     {
-        $products = json_decode('[{"id_product":8,"name":"photo-changsuek-250","price":250,"img":"8.jpg","stock":2,"show":1}]', false);
-        OrderProduct::addNewOrderProduct($products, 99999);
+        $customerProducts = json_decode('[{"id_product":8,"name":"photo-changsuek-250","price":250,"img":"8.jpg","qty":2,"show":1}]', false);
+        OrderProduct::addNewOrderProduct($customerProducts, 99999);
         $this->seeInDatabase('order_product', ['id_order' => 99999]);
     }
 

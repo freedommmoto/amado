@@ -11,8 +11,7 @@ class ProductController extends Controller
 
     public function getAll()
     {
-//        $products = Products::all()->sortBy('id_product');
-        $products = Products::orderBy('id_product')->get();
+        $products = Products::orderBy('id_product')->get(['id_product', 'name', 'stock', 'price', 'show']);
         return response()->json(['products' => $products]);
     }
 

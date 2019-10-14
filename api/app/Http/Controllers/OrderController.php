@@ -19,13 +19,16 @@ class OrderController extends Controller
             if (!Products::reduceStock($products)) {
                 throw new \Exception('stock is not enough');
             }
+
+            $orderID = Order::addNewOrder($request);
+            OrderProduct::addNewOrderProduct($products, $orderID);
+            $pusher = new PusherNotification();
+            $pusher->sendUpdateNotificationToUI();
+
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'error' => $e->getMessage()]);
+            return response()->json(['success' => false, 'error' => $e->getMessage().$e->getFile().$e->getLine()]);
         }
-        $orderID = Order::addNewOrder($request);
-        OrderProduct::addNewOrderProduct($products, $orderID);
-        $pusher = new PusherNotification();
-        $pusher->sendUpdateNotificationToUI();
+
         return response()->json(['success' => true]);
     }
 

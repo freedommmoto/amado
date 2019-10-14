@@ -22,7 +22,8 @@
                         <tr v-for="(product,idx) in this.customerProducts">
                             <template v-if="product">
                                 <td class="cart_product_img">
-                                    <a href="#"><img :src="`${apiPart}/img/${product.id_product}.jpg`" alt="Product"></a>
+                                    <a href="#"><img :src="`${apiPart}/img/${product.id_product}.jpg`"
+                                                     alt="Product"></a>
                                 </td>
                                 <td class="cart_product_desc">
                                     <h5>{{product.name}}</h5>
@@ -39,7 +40,7 @@
                                                    aria-hidden="true"></i>
                                             </span>
                                             <input type="number" class="qty-text" id="qty" step="1" min="1" max="300"
-                                                   name="quantity" :value="product.stock"
+                                                   name="quantity" :value="product.qty"
                                             >
                                             <span @click="updateCustomerProducts(product,'plus')" class="qty-plus">
                                                 <i class="fa fa-plus"
@@ -100,14 +101,14 @@
             },
             updateCustomerProducts(product, action) {
                 if (product.id_product) {
-                    let index = this.customerProducts.findIndex(x => x.id === product.id)
+                    let index = this.customerProducts.findIndex(inArrayProduct => inArrayProduct.id_product === product.id_product)
                     if (index > -1) {
                         let customerProducts = this.customerProducts;
                         if (action === 'plus') {
-                            customerProducts[index].stock += 1;
+                            customerProducts[index].qty += 1;
                         } else {
-                            customerProducts[index].stock -= 1;
-                            if (customerProducts[index].stock < 1) {
+                            customerProducts[index].qty -= 1;
+                            if (customerProducts[index].qty < 1) {
                                 customerProducts.splice(index, 1);
                                 this.$root.$data.numOrder--;
                             }
@@ -122,7 +123,7 @@
             },
             sumPrice(items, prop) {
                 return items.reduce(function (a, b) {
-                    return a + b[prop] * b.stock;
+                    return a + b[prop] * b.qty;
                 }, 0);
             }
         },

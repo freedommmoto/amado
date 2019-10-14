@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use App\Service\PusherNotification;
-use Carbon\Carbon;
 
 
 class Products extends Model
@@ -46,7 +44,7 @@ class Products extends Model
     {
         foreach ($customerProducts as $customerProduct) {
             $model = self::where('id_product', $customerProduct->id_product)->first();
-            $model->stock = (int)$model->stock - (int)$customerProduct->stock;
+            $model->stock = (int)$model->stock - (int)$customerProduct->qty;
             if ($model->stock < 0) {
                 return false;
             }
