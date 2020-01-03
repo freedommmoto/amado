@@ -10,45 +10,49 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+//
+//if (env('APP_ENV') !== 'testing') {
+//    header('Access-Control-Allow-Origin:  *');
+//    header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
+//    header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
+//}
 
-if (env('APP_ENV') !== 'testing') {
-    header('Access-Control-Allow-Origin:  *');
-    header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
-    header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
-}
+$router->group(['prefix' => 'api'], function () use ($router) {
 
-$router->get('/', function () use ($router) {
-    return $router->app->version();
-});
+    $router->get('/', function () use ($router) {
+        return $router->app->version();
+    });
 
-$router->get('/product/test', [
-    'as' => 'product', 'uses' => 'MockController@getTest'
-]);
+    $router->get('/product/test', [
+        'as' => 'product', 'uses' => 'MockController@getTest'
+    ]);
 
-$router->get('/product/all', [
-    'as' => 'productAll', 'uses' => 'ProductController@getAll'
-]);
+    $router->get('/product/all', [
+        'as' => 'productAll', 'uses' => 'ProductController@getAll'
+    ]);
 
-$router->put('/product/{id}/update', [
-    'as' => 'picture', 'uses' => 'ProductController@uploadImage'
-]);
-
-$router->post('/order/new', [
-    'as' => 'newOrder', 'uses' => 'OrderController@newOrder'
-]);
-
-$router->post('/user/login', [
-    'as' => 'userLogin', 'uses' => 'UserController@login'
-]);
-
-
-$router->group(['middleware' => 'admin-api'], function () use ($router) {
-    $router->post('/product/add', [
+    $router->put('/product/{id}/update', [
         'as' => 'picture', 'uses' => 'ProductController@uploadImage'
     ]);
 
-    $router->post('/user/auth', [
-        'as' => 'auth', 'uses' => 'UserController@auth'
+    $router->post('/order/new', [
+        'as' => 'newOrder', 'uses' => 'OrderController@newOrder'
     ]);
+
+    $router->post('/user/login', [
+        'as' => 'userLogin', 'uses' => 'UserController@login'
+    ]);
+
+
+    $router->group(['middleware' => 'admin-api'], function () use ($router) {
+        $router->post('/product/add', [
+            'as' => 'picture', 'uses' => 'ProductController@uploadImage'
+        ]);
+
+        $router->post('/user/auth', [
+            'as' => 'auth', 'uses' => 'UserController@auth'
+        ]);
+
+    });
 
 });

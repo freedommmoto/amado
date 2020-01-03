@@ -22,7 +22,7 @@
                         <tr v-for="(product,idx) in this.customerProducts">
                             <template v-if="product">
                                 <td class="cart_product_img">
-                                    <a href="#"><img :src="`${apiPart}/img/${product.id_product}.jpg`"
+                                    <a href="#"><img :src="`/img/${product.id_product}.jpg`"
                                                      alt="Product"></a>
                                 </td>
                                 <td class="cart_product_desc">

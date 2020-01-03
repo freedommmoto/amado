@@ -25,7 +25,7 @@
                         <tr v-for="(product,idx) in this.products">
                             <td class="cart_product_img">
                                 <a href="#">
-                                    <img :src="`${apiPart}/img/${product.id_product}.jpg`" alt="Product"></a>
+                                    <img :src="`/img/${product.id_product}.jpg`" alt="Product"></a>
                                 <input class="img"
                                        type="file" accept="image/*" @change="uploadImage($event,idx)"
                                        :id="`file-input-id-${idx}`">
