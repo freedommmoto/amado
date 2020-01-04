@@ -5,17 +5,18 @@ import Cart from '@/pages/Cart'
 import CheckOut from '@/pages/CheckOut'
 import Admin from '@/pages/Admin'
 import Login from '@/pages/Login'
+import store from '../store.js'
 
 Vue.use(Router)
 
 function guard(to, from, next){
-  let userData = JSON.parse(sessionStorage.getItem("userData"));
-  if(userData) {
-    // or however you store your logged in state
-    next(); // allow to enter route
-  } else{
-    next('/login'); // go to '/login';
+  // let userData = JSON.parse(sessionStorage.getItem("userData"));
+  //
+  if (!store.state.isLogged) {
+    next('/login')
   }
+
+  next(); // allow to enter route
 }
 
 export default new Router({

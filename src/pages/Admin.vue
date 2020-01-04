@@ -137,7 +137,7 @@
                 get headers() {
                     return {
                         headers: {
-                            Authorization: this.userData.token
+                            Authorization: 'Bearer ' + localStorage.getItem('token')
                         }
                     }
                 },
@@ -186,7 +186,6 @@
                 const config = {headers: {'content-type': 'multipart/form-data'}}
                 let formData = new FormData();
                 formData.append('image', this.image);
-                // console.log(formData);
 
                 let response = await axios.post(`${this.apiPart}/product/add`, formData, config)
                 this.newImg = response.data.part;

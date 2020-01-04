@@ -39,12 +39,12 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         'as' => 'newOrder', 'uses' => 'OrderController@newOrder'
     ]);
 
-    $router->post('/user/login', [
-        'as' => 'userLogin', 'uses' => 'UserController@login'
+    $router->post('/login', [
+        'as' => 'userLogin', 'uses' => 'AuthController@login'
     ]);
 
+    $router->group(['middleware' => 'auth:api'], function ($router) {
 
-    $router->group(['middleware' => 'admin-api'], function () use ($router) {
         $router->post('/product/add', [
             'as' => 'picture', 'uses' => 'ProductController@uploadImage'
         ]);
@@ -52,7 +52,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->post('/user/auth', [
             'as' => 'auth', 'uses' => 'UserController@auth'
         ]);
-
     });
+
 
 });

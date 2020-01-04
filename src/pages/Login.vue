@@ -30,6 +30,7 @@
 <script>
     import axios from 'axios'
     import Swal from 'sweetalert2'
+    import store from '@/store'
 
     export default {
         name: 'Admin',
@@ -54,14 +55,17 @@
                 let response = null
 
                 $this.formData = new FormData();
-                $this.formData.append('userName', $this.userName);
-                $this.formData.append('passWord', $this.passWord);
+                $this.formData.append('email', $this.userName);
+                $this.formData.append('password', $this.passWord);
 
-                response = await axios.post(`${this.apiPart}/user/login`, $this.formData, config)
-                if (response.data.success) {
-                    sessionStorage.setItem("userData", JSON.stringify(response.data.userData));
-                    this.$router.push('admin')
-                } else {
+                try {
+                    response = await axios.post(`${this.apiPart}/login`, $this.formData, config);
+                    if (response.data.token) {
+                        localStorage.setItem('token', response.data.token);
+                        store.commit('LOGIN_USER');
+                        this.$router.push('admin')
+                    }
+                } catch (e) {
                     Swal.fire({
                         type: 'warning',
                         title: 'username or password is incorrect',
