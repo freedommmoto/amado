@@ -3,6 +3,7 @@
 
         <div class="row">
             <div class="col-12 col-lg-10">
+
                 <div class="cart-title mt-50">
                     <h2>Manage Products</h2>
                 </div>
@@ -192,44 +193,3 @@
         }
     }
 </script>
-
-<style scoped>
-
-    .input-name {
-        width: 130px;
-        height: 38px;
-        overflow: scroll
-    }
-
-    .main-content-wrapper .cart-table-area .cart-summary {
-        margin-top: 10px;
-    }
-
-    .cart-table-area {
-        margin-top: 0px;
-        padding: 0px;
-    }
-
-    .table {
-        overflow: auto !important;
-        outline: none;
-        width: 80%;
-    }
-
-    .img {
-        width: 108px;
-    }
-
-    .amado-btn {
-        min-width: 90px;
-    }
-
-    th {
-        background: #FFFFFF;
-    }
-
-    #scrollUp {
-        width: 1000px;
-        height: 1000px;
-    }
-</style>
