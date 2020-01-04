@@ -8,9 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class User extends Model
 {
-    protected
-        $table = 'users',
-        $primaryKey = 'id_user';
+    protected $table = 'users';
 
     const CREATED_AT = 'created';
     const UPDATED_AT = 'modified';

@@ -22,8 +22,7 @@
                         </thead>
 
                         <tbody>
-
-                        <tr v-for="(product,idx) in this.products">
+                        <tr v-for="(product,idx) in this.products" v-if="product.show">
                             <td class="cart_product_img">
                                 <a href="#">
                                     <img :src="`/img/${product.id_product}.jpg`" alt="Product"></a>
@@ -47,14 +46,8 @@
                                 <div class="qty-btn d-flex">
                                     <p>Qty</p>
                                     <div class="quantity">
-                                        <span class="qty-minus"
-                                              onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;"><i
-                                                class="fa fa-minus" aria-hidden="true"></i></span>
-                                        <input type="number" class="qty-text" id="qty" step="1" min="1" max="300"
-                                               name="quantity" :value="product.stock">
-                                        <span class="qty-plus"
-                                              onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;"><i
-                                                class="fa fa-plus" aria-hidden="true"></i></span>
+                                        <input type="number" class="form-control" min="1" max="30000" name="quantity"
+                                               :value="product.stock">
                                     </div>
                                 </div>
                             </td>
@@ -69,7 +62,6 @@
                                 <a href="#" class="btn amado-btn small-btn">SAVE</a>
                             </td>
                         </tr>
-
                         </tbody>
                     </table>
 
@@ -90,14 +82,15 @@
                             <div class="row">
                                 <div class="col-12 mb-3">
                                     <input type="text" class="form-control" name="name" placeholder="Product Name"
-                                           value="">
+                                           v-model="name" value="">
                                 </div>
                                 <div class="col-md-6 mb-3">
-                                    <input type="number" class="form-control" name="price" placeholder="price" value="">
+                                    <input type="number" class="form-control" name="price" placeholder="price"
+                                           v-model="price" value="0">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <input type="number" class="form-control" name="quantity" placeholder="quantity"
-                                           value="">
+                                           v-model="quantity" value="0">
                                 </div>
                                 <div class="col-12 mb-3">
                                     <img :src="newImg" v-if="newImg">
@@ -132,23 +125,23 @@
                     {'value': null, 'text': 'Remove'},
                 ],
                 name: '',
+                price: 0,
+                quantity: 0,
                 image: '',
                 newImg: null,
                 get headers() {
                     return {
                         headers: {
-                            Authorization: 'Bearer ' + localStorage.getItem('token')
+                            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                            'content-type': 'multipart/form-data'
                         }
                     }
-                },
-                get userData() {
-                    return JSON.parse(sessionStorage.getItem("userData"));
                 }
             }
         },
         mounted() {
-            this.getProduct()
-            this.isLogin()
+            this.getProduct();
+            this.isLogin();
         },
         methods: {
             async isLogin() {
@@ -182,12 +175,14 @@
             },
             async formSubmit(e) {
                 e.preventDefault();
-
-                const config = {headers: {'content-type': 'multipart/form-data'}}
                 let formData = new FormData();
-                formData.append('image', this.image);
 
-                let response = await axios.post(`${this.apiPart}/product/add`, formData, config)
+                formData.append('image', this.image);
+                formData.append('name', this.name);
+                formData.append('price', parseInt(this.price));
+                formData.append('quantity', parseInt(this.quantity));
+
+                let response = await axios.post(`${this.apiPart}/product/add`, formData, this.headers)
                 this.newImg = response.data.part;
             }
         }

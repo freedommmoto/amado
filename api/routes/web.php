@@ -10,12 +10,6 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-//
-//if (env('APP_ENV') !== 'testing') {
-//    header('Access-Control-Allow-Origin:  *');
-//    header('Access-Control-Allow-Methods:  POST, GET, OPTIONS, PUT, DELETE');
-//    header('Access-Control-Allow-Headers:  Content-Type, X-Auth-Token, Origin, Authorization');
-//}
 
 $router->group(['prefix' => 'api'], function () use ($router) {
 
@@ -46,7 +40,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->group(['middleware' => 'auth:api'], function ($router) {
 
         $router->post('/product/add', [
-            'as' => 'picture', 'uses' => 'ProductController@uploadImage'
+            'as' => 'picture', 'uses' => 'ProductController@add'
         ]);
 
         $router->post('/user/auth', [
