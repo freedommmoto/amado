@@ -24,14 +24,10 @@ class User extends Model
      * @param string $token
      * @return bool
      */
-    final public static function checkTokenIsMatch(string $userName, string $token): bool
+    final public static function checkToken(string $token): bool
     {
         $tokenDecrypt = Crypt::decryptString($token);
         $tokenArray = explode(',', $tokenDecrypt);
-
-        if ($tokenArray[0] !== $userName) {
-            return false;
-        }
 
         if (empty($tokenArray[1])) {
             return false;

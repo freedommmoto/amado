@@ -135,7 +135,7 @@
                 get headers() {
                     return {
                         headers: {
-                            'content-type': 'multipart/form-data'
+                            Authorization: this.userData.token
                         }
                     }
                 },
@@ -151,11 +151,7 @@
         methods: {
             async isLogin() {
                 try {
-                    let formData = new FormData();
-                    formData.append('userName', this.userData.userName);
-                    formData.append('token', this.userData.token);
-
-                    await axios.post(`${this.apiPart}/user/auth`, formData, this.headers)
+                    await axios.post(`${this.apiPart}/user/auth`, {}, this.headers)
                 } catch ({message}) {
                     this.$router.push('login')
                 }
