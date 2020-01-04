@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="cart-table clearfix">
-                    <table class="table">
+                    <table class="table_admin">
                         <thead>
                         <tr>
                             <th></th>
@@ -101,7 +101,8 @@
                                 </div>
                                 <div class="col-12 mb-3">
                                     <img :src="newImg" v-if="newImg">
-                                    <input class="form-control" type="file" accept="image/*" @change="onImageChange" id="file-input">
+                                    <input class="form-control" type="file" accept="image/*" @change="onImageChange"
+                                           id="file-input">
                                 </div>
                             </div>
                             <button type="submit" class="btn amado-btn w-100">Submit</button>

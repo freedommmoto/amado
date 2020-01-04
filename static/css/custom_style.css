@@ -8,12 +8,12 @@
   margin-top: 10px;
 }
 
-.cart-table-area {
-  margin-top: 0px;
-  padding: 0px;
-}
+/*.cart-table-area {*/
+/*  margin-top: 0px;*/
+/*  padding: 0px;*/
+/*}*/
 
-.table {
+.table_admin {
   overflow: auto !important;
   outline: none;
   width: 80%;
