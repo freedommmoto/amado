@@ -112,24 +112,26 @@
                 <div class="cart-summary">
                     <h4>Order Report</h4>
 
-                    <table class="table">
-                        <thead>
-                        <tr>
-                            <th class="max10" scope="col">#</th>
-                            <th scope="col">Qty</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Email</th>
-                            <th scope="col">Order Date</th>
-                        </tr>
-                        <tr v-for="(row,idx) in this.report">
-                            <th class="max10" scope="col" style="width: 20px;">{{idx+1}}</th>
-                            <th scope="col">{{row.qty}}</th>
-                            <th scope="col">{{row.total}}</th>
-                            <th scope="col">{{row.email}}</th>
-                            <th scope="col">{{row.date}}</th>
-                        </tr>
-                        </thead>
-                    </table>
+                    <div class="ped10">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="max10" scope="col">#</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Total</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Order Date</th>
+                            </tr>
+                            <tr v-for="(row,idx) in this.report">
+                                <th class="max10" scope="col" style="width: 20px;">{{idx+1}}</th>
+                                <th scope="col">{{row.qty}}</th>
+                                <th scope="col">{{row.total}}</th>
+                                <th scope="col">{{row.email}}</th>
+                                <th scope="col">{{row.date}}</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
 
                 </div>
             </div>
@@ -139,13 +141,15 @@
 </template>
 
 <script>
-    import axios from 'axios'
+    import axios from 'axios';
+    import Pusher from 'pusher-js';
 
     export default {
         name: 'Admin',
         data() {
             return {
                 apiPart: this.$root.$data.apiPart,
+                pusherKey: this.$root.$data.pusherKey,
                 products: [],
                 productsAll: [],
                 actions: [
@@ -175,8 +179,22 @@
             this.getProduct();
             this.getProfile();
             this.getOrderReport();
+            this.loadPusher()
         },
         methods: {
+            loadPusher() {
+                let $this = this;
+                this.pusher = new Pusher($this.pusherKey, {
+                    cluster: 'ap1',
+                    forceTLS: true
+                });
+
+                let channel = this.pusher.subscribe('update-product-channel');
+                channel.bind('update-product-event', function (data) {
+                    $this.getOrderReport();
+                    $this.getProduct();
+                });
+            },
             async getProfile() {
                 try {
                     const response = await axios.post(`${this.apiPart}/user/profile`, {}, this.headers)
