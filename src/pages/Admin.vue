@@ -94,7 +94,7 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <input type="number" class="form-control" name="quantity" placeholder="quantity"
-                                           v-model="quantity" value="0">
+                                           v-model="stock" value="0">
                                 </div>
                                 <div class="col-12 mb-3">
                                     <img :src="newImg" v-if="newImg">
@@ -162,7 +162,7 @@
                 user: {},
                 name: '',
                 price: 0,
-                quantity: 0,
+                stock: 0,
                 image: '',
                 newImg: null,
                 get headers() {
@@ -240,7 +240,7 @@
                 formData.append('image', this.image);
                 formData.append('name', this.name);
                 formData.append('price', parseInt(this.price));
-                formData.append('quantity', parseInt(this.quantity));
+                formData.append('stock', parseInt(this.stock));
 
                 let response = await axios.post(`${this.apiPart}/product/add`, formData, this.headers)
                 this.newImg = response.data.part;

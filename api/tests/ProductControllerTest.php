@@ -26,10 +26,11 @@ class ProductControllerTest extends TestCase
 
     public function testAddProductSuccess()
     {
-        $data = ['name' => 'test product', 'price' => 100, 'quantity' => 12];
+        $data = ['name' => 'test product', 'price' => 100, 'stock' => 12];
         $file = ['image' => UploadedFile::fake()->image('image.jpg')];
 
         $this->call('POST', '/api/product/add', $data, [], $file, ['Authorization' => 'Bearer ' . $this->token]);
+        dd($this->response->getContent());
         $this->assertResponseStatus(200);
         $this->assertEquals(true, (json_decode($this->response->getContent(), true))['success']);
     }

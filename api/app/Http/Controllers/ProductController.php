@@ -39,28 +39,10 @@ class ProductController extends Controller
      */
     public function add(Request $request): JsonResponse
     {
-        $product = new Products();
-
         try {
-            $this->validate($request, [
-                'name' => 'required|string|min:2|max:40',
-                'price' => 'required|int',
-                'quantity' => 'required|int',
-                'image' => 'required'
-            ]);
-
-            if (!$request->hasFile('image')) {
-                return response()->json(['success' => false, 'error' => 'no product file']);
-            }
-
-            $product->name = $request->input('name');
-            $product->price = $request->input('price');
-            $product->stock = $request->input('quantity');
-            $product->save();
-
-            $destinationPath = storage_path('img');
-            $imageName = $product->id_product . '.' . $request->image->getClientOriginalExtension();
-            $request->image->move($destinationPath, $imageName);
+            $this->validateProduct($request);
+            $productID = Products::addNewProducts($request);
+            $imageName = Products::saveProductImage($productID, $request->image);
             Products::clearCached();
 
             return response()->json(['success' => true, 'part' => env('API_URL') . '/img/' . $imageName]);
@@ -68,7 +50,25 @@ class ProductController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'error' => $e->getMessage()]);
         }
+    }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    private function validateProduct(Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|string|min:2|max:40',
+            'price' => 'required|int',
+            'stock' => 'required|int',
+            'image' => 'required'
+        ]);
+
+        if (!$request->hasFile('image')) {
+            return response()->json(['success' => false, 'error' => 'no product file']);
+        }
     }
 
 }

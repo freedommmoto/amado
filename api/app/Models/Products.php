@@ -54,6 +54,19 @@ class Products extends Model
         return true;
     }
 
+    /**
+     * @param int $productID
+     * @param $image
+     * @return string
+     */
+    final public static function saveProductImage(int $productID, $image): string
+    {
+        $destinationPath = storage_path('img');
+        $imageName = $productID . '.' . $image->getClientOriginalExtension();
+        $image->move($destinationPath, $imageName);
+        return $imageName;
+    }
+
     final public static function clearCached(): void
     {
         Redis::set('products', null);
