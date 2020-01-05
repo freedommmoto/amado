@@ -24,7 +24,7 @@ class OrderControllerTest extends TestCase
     public function testSendOrderWithNoProduct()
     {
         $data = ['firstName' => 'patara', 'product' => null, 'email' => 'm.c.kmitl@gmail.com'];
-        $response = $this->json('POST', '/order/new', $data);
+        $response = $this->json('POST', '/api/order/new', $data);
 
         $response->seeJson(
             ['success' => false]
@@ -39,7 +39,7 @@ class OrderControllerTest extends TestCase
     public function testSendOrderWithAllData()
     {
         $data = ['firstName' => 'patara', 'product' => '[{"id_product":99,"name":"asd","price":250,"qty":1,"show":1}]', 'email' => 'm.c.kmitl@gmail.com'];
-        $response = $this->json('POST', '/order/new', $data);
+        $response = $this->json('POST', '/api/order/new', $data);
 
         $response->seeJson(
             ['success' => true]

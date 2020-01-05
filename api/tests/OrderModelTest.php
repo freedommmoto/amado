@@ -46,5 +46,4 @@ class OrderModelTest extends TestCase
         $this->seeInDatabase('order_product', ['id_order' => 99999]);
     }
 
-
 }
