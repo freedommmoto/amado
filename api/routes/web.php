@@ -43,8 +43,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
             'as' => 'picture', 'uses' => 'ProductController@add'
         ]);
 
-        $router->post('/user/auth', [
-            'as' => 'auth', 'uses' => 'UserController@auth'
+        $router->post('/user/profile', [
+            'as' => 'auth', 'uses' => 'UserController@profile'
         ]);
     });
 

@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\User;
-
+use Auth;
 
 class UserController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Illuminate\Validation\ValidationException
+     */
     public function login(Request $request): JsonResponse
     {
         $this->validate($request, [
@@ -28,9 +33,9 @@ class UserController extends Controller
         return response()->json(['success' => false, 'userData' => []]);
     }
 
-    public function auth(): JsonResponse
+    public function profile(): JsonResponse
     {
-        return response()->json(['success' => true]);
+        return response()->json(['success' => true, 'user' => Auth::user()]);
     }
 
 }

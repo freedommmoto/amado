@@ -2,6 +2,10 @@
     <div class="cart-table-area section-padding-100">
 
         <div class="row">
+            <div class="" style="position: absolute; right: 100px;">
+                <h5>Welcome : {{user.email}}</h5>
+            </div>
+
             <div class="col-12 col-lg-10">
 
                 <div class="cart-title mt-50">
@@ -124,6 +128,7 @@
                     {'value': true, 'text': 'Show'},
                     {'value': null, 'text': 'Remove'},
                 ],
+                user: {},
                 name: '',
                 price: 0,
                 quantity: 0,
@@ -141,12 +146,13 @@
         },
         mounted() {
             this.getProduct();
-            this.isLogin();
+            this.getProfile();
         },
         methods: {
-            async isLogin() {
+            async getProfile() {
                 try {
-                    await axios.post(`${this.apiPart}/user/auth`, {}, this.headers)
+                    const response = await axios.post(`${this.apiPart}/user/profile`, {}, this.headers)
+                    this.user = response.data.user;
                 } catch ({message}) {
                     this.$router.push('login')
                 }
