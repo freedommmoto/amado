@@ -5,13 +5,21 @@ namespace App\Http\Controllers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Models\Products;
+use Illuminate\Support\Facades\Redis;
 
 class ProductController extends Controller
 {
-
     public function getAll()
     {
-        $products = Products::orderBy('id_product')->get(['id_product', 'name', 'stock', 'price', 'show']);
+        $cached = Redis::get('products');
+        if (!$cached) {
+            $products = Products::orderBy('id_product')->get(['id_product', 'name', 'stock', 'price', 'show']);
+            Redis::set('products', json_encode($products));
+            Redis::expire('products', 3600);
+        } else {
+            $products = json_decode($cached);
+        }
+
         return response()->json(['products' => $products]);
     }
 
@@ -53,6 +61,7 @@ class ProductController extends Controller
             $destinationPath = storage_path('img');
             $imageName = $product->id_product . '.' . $request->image->getClientOriginalExtension();
             $request->image->move($destinationPath, $imageName);
+            Products::clearCached();
 
             return response()->json(['success' => true, 'part' => env('API_URL') . '/img/' . $imageName]);
 

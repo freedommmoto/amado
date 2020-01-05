@@ -30,6 +30,7 @@ class NewOrderFacade
             throw new \Exception('enable to add new product list in this order');
         }
 
+        Products::clearCached();
     }
 
 }

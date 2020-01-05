@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Redis;
 
 class Products extends Model
 {
@@ -52,6 +52,11 @@ class Products extends Model
         }
 
         return true;
+    }
+
+    final public static function clearCached(): void
+    {
+        Redis::set('products', null);
     }
 
 }
