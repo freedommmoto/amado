@@ -30,3 +30,7 @@
 th {
   background: #FFFFFF;
 }
+
+.max10{
+  max-width: 10px !important;
+}

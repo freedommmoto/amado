@@ -46,4 +46,14 @@ class OrderModelTest extends TestCase
         $this->seeInDatabase('order_product', ['id_order' => 99999]);
     }
 
+    /**
+     * @param $id
+     * @param $expected
+     */
+    public function testGetOrderProductReport()
+    {
+        $report = OrderProduct::getOrderReport();
+        $this->assertIsArray($report);
+    }
+
 }

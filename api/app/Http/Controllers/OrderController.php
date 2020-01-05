@@ -6,6 +6,7 @@ use App\Service\PusherNotification;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Facades\NewOrderFacade;
+use App\Models\OrderProduct;
 
 class OrderController extends Controller
 {
@@ -38,6 +39,21 @@ class OrderController extends Controller
         }
 
         return response()->json(['success' => true]);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function report(Request $request): JsonResponse
+    {
+        try {
+            $report = OrderProduct::getOrderReport();
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
+        }
+
+        return response()->json(['report' => $report]);
     }
 
     /**

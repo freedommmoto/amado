@@ -105,6 +105,31 @@
                             <button type="submit" class="btn amado-btn w-100">Submit</button>
                         </form>
                     </div>
+                </div>
+            </div>
+
+            <div class="cart-table-area" v-if="showReport">
+                <div class="cart-summary">
+                    <h4>Order Report</h4>
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th class="max10" scope="col">#</th>
+                            <th scope="col">Qty</th>
+                            <th scope="col">Total</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Order Date</th>
+                        </tr>
+                        <tr v-for="(row,idx) in this.report">
+                            <th class="max10" scope="col" style="width: 20px;">{{idx+1}}</th>
+                            <th scope="col">{{row.qty}}</th>
+                            <th scope="col">{{row.total}}</th>
+                            <th scope="col">{{row.email}}</th>
+                            <th scope="col">{{row.date}}</th>
+                        </tr>
+                        </thead>
+                    </table>
 
                 </div>
             </div>
@@ -128,6 +153,8 @@
                     {'value': true, 'text': 'Show'},
                     {'value': null, 'text': 'Remove'},
                 ],
+                showReport: true,
+                report: [],
                 user: {},
                 name: '',
                 price: 0,
@@ -147,6 +174,7 @@
         mounted() {
             this.getProduct();
             this.getProfile();
+            this.getOrderReport();
         },
         methods: {
             async getProfile() {
@@ -155,6 +183,14 @@
                     this.user = response.data.user;
                 } catch ({message}) {
                     this.$router.push('login')
+                }
+            },
+            async getOrderReport() {
+                try {
+                    const response = await axios.post(`${this.apiPart}/order/report`, {}, this.headers)
+                    this.report = response.data.report;
+                } catch ({message}) {
+                    this.showReport = false;
                 }
             },
             async getProduct() {

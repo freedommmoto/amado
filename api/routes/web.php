@@ -46,6 +46,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->post('/user/profile', [
             'as' => 'auth', 'uses' => 'UserController@profile'
         ]);
+
+        $router->post('/order/report', [
+            'as' => 'auth', 'uses' => 'OrderController@report'
+        ]);
     });
 
 
