@@ -10,11 +10,11 @@
                     <form @submit="formSubmit" enctype="multipart/form-data">
                         <div class="row">
                             <div class="col-12 mb-3">
-                                <input type="text" class="form-control" v-model="userName" placeholder="User Name"
+                                <input type="email" required class="form-control" v-model="email" placeholder="email"
                                        value="">
                             </div>
                             <div class="col-12 mb-3">
-                                <input type="password" class="form-control" v-model="passWord" name="name"
+                                <input type="password" required class="form-control" v-model="password"
                                        placeholder="password" value="">
                             </div>
                         </div>
@@ -36,13 +36,10 @@
         name: 'Admin',
         data() {
             return {
-                userName: '',
-                passWord: '',
+                email: '',
+                password: '',
                 apiPart: this.$root.$data.apiPart,
             }
-        },
-        mounted() {
-
         },
         methods: {
             formSubmit(e) {
@@ -52,14 +49,13 @@
             async checkLoginWithApi($this) {
 
                 const config = {headers: {'content-type': 'multipart/form-data'}}
-                let response = null
 
                 $this.formData = new FormData();
-                $this.formData.append('email', $this.userName);
-                $this.formData.append('password', $this.passWord);
+                $this.formData.append('email', $this.email);
+                $this.formData.append('password', $this.password);
 
                 try {
-                    response = await axios.post(`${this.apiPart}/login`, $this.formData, config);
+                    const response = await axios.post(`${this.apiPart}/login`, $this.formData, config);
                     if (response.data.token) {
                         localStorage.setItem('token', response.data.token);
                         store.commit('LOGIN_USER');
