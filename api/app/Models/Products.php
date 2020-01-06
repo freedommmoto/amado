@@ -31,7 +31,7 @@ class Products extends Model
         $model->name = $request->input('name');
         $model->stock = $request->input('stock');
         $model->price = $request->input('price');
-        $model->show = $request->input('show');
+        $model->show = empty($request->input('show')) ? true : $request->input('show');
         $model->save();
         return $model->id_product;
     }
@@ -52,19 +52,6 @@ class Products extends Model
         }
 
         return true;
-    }
-
-    /**
-     * @param int $productID
-     * @param $image
-     * @return string
-     */
-    final public static function saveProductImage(int $productID, $image): string
-    {
-        $destinationPath = storage_path('img');
-        $imageName = $productID . '.' . $image->getClientOriginalExtension();
-        $image->move($destinationPath, $imageName);
-        return $imageName;
     }
 
     final public static function clearCached(): void

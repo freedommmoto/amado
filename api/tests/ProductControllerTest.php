@@ -30,7 +30,7 @@ class ProductControllerTest extends TestCase
         $file = ['image' => UploadedFile::fake()->image('image.jpg')];
 
         $this->call('POST', '/api/product/add', $data, [], $file, ['Authorization' => 'Bearer ' . $this->token]);
-        dd($this->response->getContent());
+
         $this->assertResponseStatus(200);
         $this->assertEquals(true, (json_decode($this->response->getContent(), true))['success']);
     }

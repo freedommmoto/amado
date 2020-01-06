@@ -40,9 +40,10 @@ class ProductController extends Controller
     public function add(Request $request): JsonResponse
     {
         try {
+
             $this->validateProduct($request);
             $productID = Products::addNewProducts($request);
-            $imageName = Products::saveProductImage($productID, $request->image);
+            $imageName = $this->saveProductImage($productID, $request);
             Products::clearCached();
 
             return response()->json(['success' => true, 'part' => env('API_URL') . '/img/' . $imageName]);
@@ -71,4 +72,17 @@ class ProductController extends Controller
         }
     }
 
+    /**
+     * @param int $productID
+     * @param Request $request
+     * @return string
+     */
+    private function saveProductImage(int $productID, Request $request): string
+    {
+        $destinationPath = storage_path('img');
+        //$imageName = $productID . '.' . $request->image->getClientOriginalExtension();
+        $imageName = $productID . '.' . 'jpg';
+        $request->image->move($destinationPath, $imageName);
+        return $imageName;
+    }
 }
