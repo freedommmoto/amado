@@ -13,7 +13,7 @@ class ProductController extends Controller
     {
         $cached = Redis::get('products');
         if (!$cached) {
-            $products = Products::orderBy('id_product')->get(['id_product', 'name', 'stock', 'price', 'show']);
+            $products = Products::orderBy('id_product','DESC')->get(['id_product', 'name', 'stock', 'price', 'show']);
             Redis::set('products', json_encode($products));
             Redis::expire('products', 3600);
         } else {

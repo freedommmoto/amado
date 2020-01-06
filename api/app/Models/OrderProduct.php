@@ -43,7 +43,8 @@ class OrderProduct extends Model
                 (op.qty * price) AS total,
                 email,
                 comment,
-                op.created as date
+                op.created as date,
+                p.name
             FROM order_product as op
             LEFT JOIN products as p on p.id_product = op.id_product
             LEFT JOIN \"order\" as o on o.id_order = op.id_order

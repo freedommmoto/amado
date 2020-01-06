@@ -90,11 +90,11 @@
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <input type="number" class="form-control" name="price" placeholder="price"
-                                           v-model="price" value="0">
+                                           v-model="price">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <input type="number" class="form-control" name="quantity" placeholder="quantity"
-                                           v-model="stock" value="0">
+                                           v-model="stock">
                                 </div>
                                 <div class="col-12 mb-3">
                                     <img :src="newImg" v-if="newImg">
@@ -117,14 +117,16 @@
                             <thead>
                             <tr>
                                 <th class="max10" scope="col">#</th>
-                                <th scope="col">Qty</th>
-                                <th scope="col">Total</th>
+                                <th class="max10" scope="col">Qty</th>
+                                <th scope="col">Product</th>
+                                <th scope="col">Total Price</th>
                                 <th scope="col">Email</th>
                                 <th scope="col">Order Date</th>
                             </tr>
                             <tr v-for="(row,idx) in this.report">
                                 <th class="max10" scope="col" style="width: 20px;">{{idx+1}}</th>
-                                <th scope="col">{{row.qty}}</th>
+                                <th class="max10" scope="col">{{row.qty}}</th>
+                                <th scope="col">{{row.name}}</th>
                                 <th scope="col">{{row.total}}</th>
                                 <th scope="col">{{row.email}}</th>
                                 <th scope="col">{{row.date}}</th>
@@ -161,8 +163,8 @@
                 report: [],
                 user: {},
                 name: '',
-                price: 0,
-                stock: 0,
+                price: null,
+                stock: null,
                 image: '',
                 newImg: null,
                 get headers() {
@@ -242,8 +244,13 @@
                 formData.append('price', parseInt(this.price));
                 formData.append('stock', parseInt(this.stock));
 
-                let response = await axios.post(`${this.apiPart}/product/add`, formData, this.headers)
-                this.newImg = response.data.part;
+                try {
+                    let response = await axios.post(`${this.apiPart}/product/add`, formData, this.headers)
+                    this.newImg = response.data.part;
+                    this.getProduct();
+                } catch (e) {
+
+                }
             }
         }
     }
