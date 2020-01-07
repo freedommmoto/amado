@@ -37,7 +37,7 @@ class ProductControllerTest extends TestCase
 
     public function testAddProductWithNoImage()
     {
-        $data = ['name' => 'test product', 'price' => 100, 'quantity' => 12, 'image' => 'image.jpg'];
+        $data = ['name' => 'test product', 'price' => 100, 'stock' => 12, 'image' => 'image.jpg'];
 
         $this->post('/api/product/add', $data, ['Authorization' => 'Bearer ' . $this->token]);
         $arrayRes = json_decode($this->response->getContent(), true);
