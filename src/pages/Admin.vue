@@ -2,8 +2,11 @@
     <div class="cart-table-area section-padding-100">
 
         <div class="row">
-            <div class="" style="position: absolute; right: 100px;">
+            <div class="welcome-box">
                 <h5>Welcome : {{user.email}}</h5>
+                <a href="#" @click="logout">
+                    <button class="logout-button">logout</button>
+                </a>
             </div>
 
             <div class="col-12 col-lg-10">
@@ -29,7 +32,7 @@
                         <tr v-for="(product,idx) in this.products" v-if="product.show">
                             <td class="cart_product_img">
                                 <a href="#">
-                                    <img :src="`/img/${product.id_product}.jpg`" alt="Product"></a>
+                                    <img :src="`${imgPart+'/'+product.id_product}.jpg`" alt="Product"></a>
                                 <input class="img"
                                        type="file" accept="image/*" @change="uploadImage($event,idx)"
                                        :id="`file-input-id-${idx}`">
@@ -145,12 +148,15 @@
 <script>
     import axios from 'axios';
     import Pusher from 'pusher-js';
+    import VueCookies from 'vue-cookies'
+    import Swal from 'sweetalert2'
 
     export default {
         name: 'Admin',
         data() {
             return {
                 apiPart: this.$root.$data.apiPart,
+                imgPart: this.$root.$data.imgPart,
                 pusherKey: this.$root.$data.pusherKey,
                 products: [],
                 productsAll: [],
@@ -167,23 +173,35 @@
                 stock: null,
                 image: '',
                 newImg: null,
-                get headers() {
-                    return {
-                        headers: {
-                            'Authorization': 'Bearer ' + localStorage.getItem('token'),
-                            'content-type': 'multipart/form-data'
-                        }
-                    }
-                }
             }
         },
         mounted() {
+            axios.defaults.headers.common['Authorization'] = VueCookies.get('Authorization');
             this.getProduct();
             this.getProfile();
             this.getOrderReport();
             this.loadPusher()
         },
         methods: {
+            async logout() {
+                try {
+                    let response = await axios.post(`${this.apiPart}/logout`);
+                    if (response.data.success && response.data.success == true) {
+                        Swal.fire({
+                            type: 'success',
+                            title: 'logout success',
+                        });
+                        $cookies.remove('Authorization');
+
+                        this.$router.push('login');
+                    }
+                } catch ({message}) {
+                    Swal.fire({
+                        type: 'warning',
+                        title: 'logout fail',
+                    })
+                }
+            },
             loadPusher() {
                 let $this = this;
                 this.pusher = new Pusher($this.pusherKey, {
@@ -199,7 +217,7 @@
             },
             async getProfile() {
                 try {
-                    const response = await axios.post(`${this.apiPart}/user/profile`, {}, this.headers)
+                    let response = await axios.get(`${this.apiPart}/user/profile`);
                     this.user = response.data.user;
                 } catch ({message}) {
                     this.$router.push('login')
@@ -207,7 +225,8 @@
             },
             async getOrderReport() {
                 try {
-                    const response = await axios.post(`${this.apiPart}/order/report`, {}, this.headers)
+                    //const response = await axios.get(`${this.apiPart}/order/report`, this.headers)
+                    let response = await axios.get(`${this.apiPart}/order/report`);
                     this.report = response.data.report;
                 } catch ({message}) {
                     this.showReport = false;

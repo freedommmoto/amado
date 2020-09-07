@@ -37,6 +37,9 @@ $router->group(['prefix' => 'api','middleware' => 'CorsMiddleware'], function ()
     $router->post('/login', [
         'as' => 'userLogin', 'uses' => 'AuthController@login'
     ]);
+    $router->post('/logout', [
+        'as' => 'userLogin', 'uses' => 'AuthController@logout'
+    ]);
 
     $router->group(['middleware' => 'auth:api'], function ($router) {
 
@@ -44,11 +47,11 @@ $router->group(['prefix' => 'api','middleware' => 'CorsMiddleware'], function ()
             'as' => 'picture', 'uses' => 'ProductController@add'
         ]);
 
-        $router->post('/user/profile', [
+        $router->get('/user/profile', [
             'as' => 'auth', 'uses' => 'UserController@profile'
         ]);
 
-        $router->post('/order/report', [
+        $router->get('/order/report', [
             'as' => 'auth', 'uses' => 'OrderController@report'
         ]);
     });

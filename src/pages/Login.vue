@@ -31,6 +31,7 @@
     import axios from 'axios'
     import Swal from 'sweetalert2'
     import store from '@/store'
+    import VueCookies from 'vue-cookies'
 
     export default {
         name: 'Admin',
@@ -57,9 +58,9 @@
                 try {
                     const response = await axios.post(`${this.apiPart}/login`, $this.formData, config);
                     if (response.data.token) {
-                        localStorage.setItem('token', response.data.token);
+                        VueCookies.set('Authorization' , 'Bearer '+response.data.token, "1h")
                         store.commit('LOGIN_USER');
-                        this.$router.push('admin')
+                        this.$router.push('admin');
                     }
                 } catch (e) {
                     Swal.fire({
