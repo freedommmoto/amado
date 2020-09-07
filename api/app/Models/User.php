@@ -10,10 +10,6 @@ class User extends Model
 {
     protected $table = 'users';
 
-    const CREATED_AT = 'created';
-    const UPDATED_AT = 'modified';
-    const DELETED_AT = 'deleted';
-
     protected $dateFormat = 'Y-m-d H:i:sP';
     public $timestamps = false;
 

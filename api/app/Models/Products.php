@@ -12,10 +12,6 @@ class Products extends Model
         $table = 'products',
         $primaryKey = 'id_product';
 
-    const CREATED_AT = 'created';
-    const UPDATED_AT = 'modified';
-    const DELETED_AT = 'deleted';
-
     protected $dateFormat = 'Y-m-d H:i:sP';
     public $timestamps = false;
 

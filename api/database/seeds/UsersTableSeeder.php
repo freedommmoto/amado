@@ -14,14 +14,14 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'email' => 'patara@test.com',
+            'enable' => true,
             'password' => app('hash')->make('1150kfc'),
-            'created' => \Carbon\Carbon::now(),
         ]);
 
-//        DB::table('users')->insert([
-//            'user_name' => 'testuser',
-//            'pass_word' => Hash::make('testuser'),
-//            'created' => \Carbon\Carbon::now(),
-//        ]);
+        DB::table('users')->insert([
+            'email' => 'test@test.com',
+            'enable' => true,
+            'password' => app('hash')->make('asdasd'),
+        ]);
     }
 }

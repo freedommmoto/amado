@@ -19,7 +19,9 @@ npm run build --report
 ```
 
 ``` database
-# database script is on amado.sql
+# add database config into .env then run
+php artisan migrate
+php artisan db:seed
 ```
 
 

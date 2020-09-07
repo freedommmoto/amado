@@ -11,10 +11,6 @@ class Order extends Model
         $table = 'order',
         $primaryKey = 'id_order';
 
-    const CREATED_AT = 'created';
-    const UPDATED_AT = 'modified';
-    const DELETED_AT = 'deleted';
-
     protected $dateFormat = 'Y-m-d H:i:sP';
 
     final public static function addNewOrder(Request $request): int

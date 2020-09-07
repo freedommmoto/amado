@@ -11,10 +11,6 @@ class OrderProduct extends Model
         $table = 'order_product',
         $primaryKey = 'id_order_product';
 
-    const CREATED_AT = 'created';
-    const UPDATED_AT = 'modified';
-    const DELETED_AT = 'deleted';
-
     protected $dateFormat = 'Y-m-d H:i:sP';
 
     /**
@@ -43,12 +39,12 @@ class OrderProduct extends Model
                 (op.qty * price) AS total,
                 email,
                 comment,
-                op.created as date,
+                op.created_at as date,
                 p.name
             FROM order_product as op
             LEFT JOIN products as p on p.id_product = op.id_product
             LEFT JOIN \"order\" as o on o.id_order = op.id_order
-            ORDER BY op.created DESC
+            ORDER BY op.created_at DESC
         ";
 
         $results = DB::select($sql);
