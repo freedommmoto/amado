@@ -55,7 +55,9 @@
         name: 'Footer',
         mounted() {
             let idx = this.menus.findIndex(x => x.part === this.$route.path)
-            this.menus[idx].active = 'active';
+            if(this.menus[idx]){
+                this.menus[idx].active = 'active';
+            }
         },
         data() {
             return {

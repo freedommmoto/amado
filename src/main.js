@@ -21,6 +21,7 @@ new Vue({
     data: {
         config,
         apiPart: config.apiPart,
+        imgPart: config.imgPart,
         pusherKey: config.pusherKey,
         loginKey: '',
         numOrder: 0,

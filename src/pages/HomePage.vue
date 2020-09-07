@@ -40,8 +40,8 @@
                                  v-bind:style="[product.stock > 0 ? {} : {opacity:0.4}]"
                             >
                                 <a href="#" @click="activeProduct(product)">
-                                    <img :src="`/img/${product.id_product}.jpg`"
-                                         :alt="`/img/${product.id_product}.jpg`">
+                                    <img :src="`${imgPart+'/'+product.id_product}.jpg`"
+                                         :alt="`${imgPart+'/'+product.id_product}.jpg`">
                                     <div class="hover-content">
                                         <div class="line"></div>
                                         <p>From ${{product.price}}</p>
